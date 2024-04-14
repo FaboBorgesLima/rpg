@@ -1,0 +1,54 @@
+name: Deploy app
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Copy main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+
+      - name: Copy gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Remove contents from gh-pages
+        run: |
+          cd gh-pages
+          git rm -r *
+          cd ..
+
+      - name: Build main
+        run: |
+          cd main
+          ng b
+          cd ..
+
+      - name: Copy contents from build
+        run: |
+          cp -r ./main/dist/rpg/browser/* ./gh-pages/
+          cp ./main/dist/rpg/3rdpartylicences.txt ./gh-pages/
+
+      - name: Copy contents from index.html to 404.html
+        run: cp ./gh-pages/index.html ./gh-pages/404.html
+
+      - name: Push and commit to gh-pages
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
