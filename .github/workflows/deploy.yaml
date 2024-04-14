@@ -35,7 +35,7 @@ jobs:
         run: |
           cd main
           npm i
-          ng b
+          npm run build
           cd ..
 
       - name: Copy contents from build
