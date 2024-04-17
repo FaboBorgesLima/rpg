@@ -1,4 +1,12 @@
 <div [ngSwitch]="name" class="aspect-square w-16">
-  <img *ngSwitchCase="'scroll'" src="../../assets/scroll.png" [alt]="alt" />
-  <img *ngSwitchCase="'heart'" src="../../assets/heart.png" [alt]="alt" />
+  <div
+    *ngSwitchCase="'scroll'"
+    class="scroll-icon aspect-square w-16"
+    [title]="alt"
+  ></div>
+  <div
+    *ngSwitchCase="'heart'"
+    class="heart-icon aspect-square w-16"
+    [title]="alt"
+  ></div>
 </div>
