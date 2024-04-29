@@ -1,2 +1,7 @@
-<app-header></app-header>
+<app-header [(isMenuOpen)]="isMenuOpen"></app-header>
 <router-outlet></router-outlet>
+<app-menu
+  class="absolute top-0 left-0 w-full h-full"
+  *ngIf="isMenuOpen"
+  [(isMenuOpen)]="isMenuOpen"
+></app-menu>
