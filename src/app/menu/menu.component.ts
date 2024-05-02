@@ -1,18 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IconsComponent } from '../icons/icons.component';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-menu',
   standalone: true,
-  imports: [IconsComponent],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  imports: [],
+  templateUrl: './menu.component.html',
+  styleUrl: './menu.component.css',
 })
-export class HeaderComponent {
+export class MenuComponent {
   @Input({ required: true }) isMenuOpen!: boolean;
   @Output() isMenuOpenChange = new EventEmitter<boolean>();
 
-  onClickMenu(): void {
+  closeMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
 
     this.isMenuOpenChange.emit(this.isMenuOpen);
