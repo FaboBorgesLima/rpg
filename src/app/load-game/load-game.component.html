@@ -1,0 +1,24 @@
+<main class="flex flex-col justify-start p-4 h-full grow">
+    <div class="flex flex-col gap-4 text-center mx-auto mb-12 w-full sm:w-1/2 md:w-1/4">
+      <h1 class="text-center text-gray-50 text-4xl">Select save</h1>
+    </div>
+    <div class="bg-black/20 p-4 flex flex-col gap-4 hover:[&_a]:shadow-lg">
+      <a
+        class="btn bg-red-500 hover:bg-red-500/95"
+        (click)="changeScreen('1')"
+        >Save 1</a
+      >
+      <a
+        routerLink="/preparation-screen"
+        class="btn bg-yellow-500 hover:bg-yellow-500/95"
+        (click)="changeScreen('2')"
+        >Save 2</a
+      >
+      <a
+        routerLink="/preparation-screen"
+        class="btn bg-blue-500 hover:bg-blue-500/95"
+        (click)="changeScreen('3')"
+        >Save 3</a
+      >
+    </div>
+  </main> 
