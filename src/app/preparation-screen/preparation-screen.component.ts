@@ -6,15 +6,14 @@ import { ActivatedRoute } from '@angular/router';
   standalone: true,
   imports: [],
   templateUrl: './preparation-screen.component.html',
-  styleUrl: './preparation-screen.component.css'
+  styleUrl: './preparation-screen.component.css',
 })
 export class PreparationScreenComponent implements OnInit {
-
-  constructor(private activatedRoute: ActivatedRoute) {};
-  id: any = ''; // Não funciona com tipo String
+  constructor(private activatedRoute: ActivatedRoute) {}
+  id: string = '';
 
   ngOnInit(): void {
-    //console.log(typeof());
-    this.id = this.activatedRoute.snapshot.queryParamMap.get("id");
+    const urlId = this.activatedRoute.snapshot.queryParamMap.get('id');
+    this.id = urlId ? urlId : '';
   }
 }
