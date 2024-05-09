@@ -1,5 +1,5 @@
-<main class="flex justify-between items-center p-4 h-full grow gap-16">
-  <section class="flex flex-col gap-4 text-center mx-auto w-full sm:w-1/2 md:w-1/4 basis-1/2 p-8">
+<main class="flex flex-col lg:flex-row justify-between items-center p-4 min-h-[85vh] grow gap:8 lg:gap-16">
+  <section class="flex flex-col gap-4 text-center mx-auto w-full sm:w-1/2 md:w-2/3 basis-1/2 p-8">
     <h1 class="text-center text-gray-50 text-4xl">New game</h1>
     <h2 class="text-gray-50 text-xl">Choose your hero's name</h2> 
     <input type="text" class="rounded-md w-full h-12 items-center justify-center bg-black/40 p-2 text-white text-center" placeholder="Insert your name">
@@ -16,21 +16,23 @@
       >
     </div>
   </section>
-  <section class="flex flex-col gap-8 basis-1/2 p-8 mr-8 bg-black/20 rounded-md">
+  <section class="flex flex-col gap-8 basis-1/2 p-8 lg:mr-8 bg-black/20 rounded-md">
     <h2 class="text-gray-50 text-2xl mb-8">
       [...] Stats
     </h2>
-    <div class="flex gap-4 items-center text-4xl text-white">
-      <app-icons name="heart" alt="hp-points"></app-icons>
-      <p>HP: x</p>
-    </div>
-    <div class="flex gap-4 items-center text-4xl text-white">
-      <app-icons name="sword" alt="attack-points"></app-icons>
-      <p>Attack: x</p>
-    </div>
-    <div class="flex gap-4 items-center text-4xl text-white">
-      <app-icons name="helmet" alt="defense-points"></app-icons>
-      <p>Defense: x</p>
-    </div>
+    <section class="flex flex-col md:grid md:grid-cols-2 gap-y-8">
+      <div class="flex md:flex-row gap-4 items-center lg:text-4xl text-white text-2xl">
+        <app-icons name="heart" alt="hp-points"></app-icons>
+        <p>HP: x</p>
+      </div>
+      <div class="flex gap-4 items-center lg:text-4xl text-white text-2xl">
+        <app-icons name="sword" alt="attack-points"></app-icons>
+        <p>Attack: x</p>
+      </div>
+      <div class="flex gap-4 items-center lg:text-4xl text-white text-2xl">
+        <app-icons name="helmet" alt="defense-points"></app-icons>
+        <p>Defense: x</p>
+      </div>
+    </section>
   </section>
 </main>  
