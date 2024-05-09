@@ -9,6 +9,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './icons.component.css',
 })
 export class IconsComponent {
-  @Input({ required: true }) name!: 'heart' | 'scroll';
+  @Input({ required: true }) name!: 'heart' | 'scroll' | 'sword' | 'helmet';
   @Input({ required: true }) alt!: string;
 }
