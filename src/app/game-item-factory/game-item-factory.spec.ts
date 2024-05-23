@@ -1,7 +1,7 @@
-import { GameItemFactory } from './game-item-factory';
+import { GameItemFactoryService } from './game-item-factory.service';
 
 describe('GameItemFactory', () => {
   it('should create an instance', () => {
-    expect(new GameItemFactory()).toBeTruthy();
+    expect(new GameItemFactoryService()).toBeTruthy();
   });
 });

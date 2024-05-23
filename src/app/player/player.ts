@@ -1,7 +1,7 @@
 import { Entity } from '../entity/entity';
-import { GameClassFactory } from '../game-class-factory/game-class-factory';
+import { GameClassFactoryService } from '../game-class-factory/game-class-factory.service';
 import { GameClass, GameClassesNames } from '../game-class/game-class';
-import { GameItemFactory } from '../game-item-factory/game-item-factory';
+import { GameItemFactoryService } from '../game-item-factory/game-item-factory.service';
 import { GameItem } from '../game-item/game-item';
 
 export class Player extends Entity {
@@ -15,6 +15,21 @@ export class Player extends Entity {
     super(name);
   }
 
+  update(): void {
+    const db = Player.getDb();
+
+    db[this.id] = {
+      armor: this.armor.getName(),
+      weapon: this.weapon.getName(),
+      gameClass: this.gameClass.getName(),
+      gameItems: [],
+      name: this.name,
+      xp: this.gameClass.getLevel().getXp(),
+    };
+
+    Player.writeDb(db);
+  }
+
   static getById(id: number): Player | void {
     const db = this.getDb();
 
@@ -24,10 +39,10 @@ export class Player extends Entity {
 
     return new Player(
       player.name,
-      GameClassFactory.factory(player.gameClass, player.xp),
+      GameClassFactoryService.factory(player.gameClass, player.xp),
       id,
-      GameItemFactory.factory(player.armor),
-      GameItemFactory.factory(player.weapon)
+      GameItemFactoryService.factory(player.armor),
+      GameItemFactoryService.factory(player.weapon)
     );
   }
 
@@ -60,7 +75,7 @@ export class Player extends Entity {
 
     const newID = parseInt(lastPlayerId) + 1;
 
-    const newClass = GameClassFactory.factory(gameClass, 0);
+    const newClass = GameClassFactoryService.factory(gameClass, 0);
 
     db[newID] = {
       gameClass: gameClass,
@@ -77,8 +92,8 @@ export class Player extends Entity {
       name,
       newClass,
       newID,
-      GameItemFactory.factory(''),
-      GameItemFactory.factory('')
+      GameItemFactoryService.factory(''),
+      GameItemFactoryService.factory('')
     );
   }
 

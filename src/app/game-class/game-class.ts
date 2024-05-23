@@ -5,13 +5,10 @@ export abstract class GameClass {
 
   protected level: Level;
 
-  private life: number;
   private remainingLife: number = 0;
 
-  constructor(xp: number, life: number) {
+  constructor(xp: number) {
     this.level = new Level(xp);
-    this.life = life;
-    this.remainingLife = life;
   }
 
   getLevel(): Level {
@@ -19,23 +16,20 @@ export abstract class GameClass {
   }
 
   isAlive(): boolean {
-    return this.life > 0;
+    return this.remainingLife > 0;
   }
 
   setLife(life: number): void {
-    this.life = life;
-    this.remainingLife = life;
+    this.remainingLife = this.getLife();
   }
 
   getRemaingLife(): number {
     return this.remainingLife;
   }
   reciveAttack(attack: number): void {
-    this.life -= attack;
+    this.remainingLife -= attack;
   }
-  getLife(): number {
-    return this.life;
-  }
+  abstract getLife(): number;
   getName() {
     return this.name;
   }

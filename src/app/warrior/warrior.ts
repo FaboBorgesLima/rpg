@@ -3,18 +3,18 @@ import { GameClass, GameClassesNames } from '../game-class/game-class';
 export class Warrior extends GameClass {
   protected name: GameClassesNames = 'warrior';
   constructor(xp: number) {
-    super(xp, 100);
+    super(xp);
   }
   override getLife(): number {
-    throw new Error('Method not implemented.');
+    return this.level.getLevelAmount() * 50 + 50;
   }
   override getAttack(): number {
-    throw new Error('Method not implemented.');
+    return this.level.getLevelAmount() * 5 + 20;
   }
   override getDefense(): number {
-    throw new Error('Method not implemented.');
+    return this.level.getLevelAmount() * 1 + 5;
   }
   override getSpeed(): number {
-    throw new Error('Method not implemented.');
+    return this.level.getLevelAmount() * 1 + 5;
   }
 }
