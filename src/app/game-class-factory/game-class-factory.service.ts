@@ -17,5 +17,4 @@ export class GameClassFactoryService {
     }
     return new Warrior(xp);
   }
-  static factory = new GameClassFactoryService().factory;
 }

@@ -5,23 +5,15 @@
     <h1 class="text-center text-gray-50 text-4xl">Select save</h1>
   </div>
   <div class="bg-black/20 p-4 flex flex-col gap-4 hover:[&_a]:shadow-lg">
-    <a
-      class="btn bg-red-500 hover:bg-red-500/95"
-      *ngFor="let player of Player.all()"
+    <button
+      *ngFor="let player of playerStorageService.all(); index as i"
+      class="btn even: hover:opacity-95"
+      [class.bg-red-500]="i % 3 == 0"
+      [class.bg-yellow-500]="i % 3 == 1"
+      [class.bg-blue-500]="i % 3 == 2"
       (click)="changeScreen(player.id.toString())"
-      >Save {{ player.id }}</a
     >
-    <a
-      routerLink="/preparation-screen"
-      class="btn bg-yellow-500 hover:bg-yellow-500/95"
-      (click)="changeScreen('2')"
-      >Save 2</a
-    >
-    <a
-      routerLink="/preparation-screen"
-      class="btn bg-blue-500 hover:bg-blue-500/95"
-      (click)="changeScreen('3')"
-      >Save 3</a
-    >
+      Save {{ player.id }}
+    </button>
   </div>
 </main>

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IconsComponent } from '../icons/icons.component';
-import { FormControl, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { GameClassesNames } from '../game-class/game-class';
 import { Player } from '../player/player';
 import { GameClassFactoryService } from '../game-class-factory/game-class-factory.service';
+import { PlayerStorageService } from '../player-storage/player-storage.service';
 
 @Component({
   selector: 'app-new-game',
@@ -14,15 +15,39 @@ import { GameClassFactoryService } from '../game-class-factory/game-class-factor
   styleUrl: './new-game.component.css',
 })
 export class NewGameComponent {
-  constructor(public gameClassFactoryService: GameClassFactoryService) {}
-  name = new FormControl('');
-  gameClass = new FormControl<GameClassesNames>('warrior');
+  constructor(
+    public gameClassFactoryService: GameClassFactoryService,
+    public playerStorageService: PlayerStorageService,
+    private router: Router
+  ) {}
+  form = new FormGroup({
+    name: new FormControl(''),
+    gameClass: new FormControl<GameClassesNames>('warrior'),
+  });
 
   Player = Player;
   createPlayer() {
-    Player.create(
-      this.gameClass.value ? this.gameClass.value : 'warrior',
-      this.name.value ? this.name.value : ''
+    const player = this.playerStorageService.create(
+      this.getGameClassFromForm(this.form),
+      this.getNameFromForm(this.form)
     );
+
+    this.router.navigate(['preparation-screen'], {
+      queryParams: { id: player.getId() },
+    });
+  }
+
+  getNameFromForm(form: typeof this.form): string {
+    let name = form.get('name')?.value;
+    name = name ? name : '';
+
+    return name;
+  }
+
+  getGameClassFromForm(form: typeof this.form): GameClassesNames {
+    let gameClass = form.get('gameClass')?.value;
+    gameClass = gameClass ? gameClass : 'warrior';
+
+    return gameClass;
   }
 }

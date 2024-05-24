@@ -9,5 +9,4 @@ export class GameItemFactoryService {
   factory(name: string): GameItem {
     return new Sword();
   }
-  static factory = new GameItemFactoryService().factory;
 }

@@ -2,6 +2,7 @@ import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, Params } from '@angular/router';
 import { Player } from '../player/player';
+import { PlayerStorageService } from '../player-storage/player-storage.service';
 
 @Component({
   selector: 'app-load-game',
@@ -11,9 +12,10 @@ import { Player } from '../player/player';
   styleUrl: './load-game.component.css',
 })
 export class LoadGameComponent {
-  Player = Player;
-
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public playerStorageService: PlayerStorageService
+  ) {}
 
   changeScreen(id: string): void {
     let idParam: Params = { id: id };
