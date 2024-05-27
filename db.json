@@ -1,0 +1,31 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "name": "Turin",
+      "hitPoints": 10,
+      "attack": 8,
+      "defense": 4,
+      "xp": 0,
+      "characterClass": "warrior"
+    },
+    {
+      "id": 2,
+      "name": "Mablung",
+      "hitPoints": 7,
+      "attack": 4,
+      "defense": 2,
+      "xp": 0,
+      "characterClass": "thief"
+    },
+    {
+      "id": 3,
+      "name": "Beleg",
+      "hitPoints": 10,
+      "attack": 8,
+      "defense": 4,
+      "xp": 0,
+      "characterClass": "warrior"
+    }
+  ]
+}
