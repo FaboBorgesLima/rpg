@@ -1,17 +1,17 @@
+import { LifeBarComponent } from '../life-bar/life-bar.component';
+import { PlayerStorageService } from '../player-storage/player-storage.service';
+import { Player } from './../player/player';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PlayerStorageService } from '../player-storage/player-storage.service';
-import { Player } from '../player/player';
 
 @Component({
-  selector: 'app-preparation-screen',
+  selector: 'app-fight-screen',
   standalone: true,
-  imports: [],
-  templateUrl: './preparation-screen.component.html',
-  styleUrl: './preparation-screen.component.css',
-  host: { class: 'grow flex flex-col' },
+  imports: [LifeBarComponent],
+  templateUrl: './fight-screen.component.html',
+  styleUrl: './fight-screen.component.css'
 })
-export class PreparationScreenComponent implements OnInit {
+export class FightScreenComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     public playerStorage: PlayerStorageService,
@@ -37,12 +37,5 @@ export class PreparationScreenComponent implements OnInit {
     }
 
     this.player = player;
-  }
-
-  public toFight():void {
-    console.log(this.id);
-    this.router.navigate(["fight-screen"], {
-      queryParams: { id:this.id }
-    });
   }
 }
