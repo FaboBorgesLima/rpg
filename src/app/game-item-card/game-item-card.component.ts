@@ -3,6 +3,7 @@ import { GameItem } from '../game-item/game-item';
 import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { Player } from '../player/player';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
+import { GameItemFactoryService } from '../game-item-factory/game-item-factory.service';
 
 @Component({
   selector: 'app-game-item-card',
@@ -12,10 +13,15 @@ import { PlayerStorageService } from '../player-storage/player-storage.service';
   styleUrl: './game-item-card.component.css',
 })
 export class GameItemCardComponent {
-  constructor(private playerStorage: PlayerStorageService) {}
-  @Input({ required: true }) gameItem!: GameItem;
+  constructor(
+    private playerStorage: PlayerStorageService,
+    private gameItemFactory: GameItemFactoryService
+  ) {}
+  @Input({ required: true }) gameItem: GameItem =
+    this.gameItemFactory.getDefault();
 
-  @Input({ required: true }) player!: Player;
+  @Input({ required: true }) player: Player =
+    this.playerStorage.getDefaultPlayer(0);
   @Output() playerChange = new EventEmitter<Player>();
 
   onEquip() {
