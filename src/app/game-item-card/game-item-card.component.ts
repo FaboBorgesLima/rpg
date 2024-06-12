@@ -36,6 +36,8 @@ export class GameItemCardComponent {
     }
     this.playerChange.emit(this.player);
 
+    console.log(this.player);
+
     this.playerStorage.update(this.player);
   }
 }

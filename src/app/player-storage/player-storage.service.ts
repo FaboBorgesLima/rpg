@@ -115,7 +115,7 @@ export class PlayerStorageService {
       armor: player.armor.getName(),
       weapon: player.weapon.getName(),
       gameClass: player.getGameClass().getName(),
-      gameItems: [],
+      gameItems: player.gameItems.map((item) => item.getName()),
       name: player.getName(),
       xp: player.getGameClass().getLevel().getXp(),
     };
