@@ -6,7 +6,6 @@ import { PreparationScreenComponent } from './preparation-screen/preparation-scr
 import { FightScreenComponent } from './fight-screen/fight-screen.component';
 
 export const routes: Routes = [
-  { path: '', component: HomePageComponent, pathMatch: 'full' },
   { path: 'new-game', component: NewGameComponent, pathMatch: 'full' },
   { path: 'load-game', component: LoadGameComponent, pathMatch: 'full' },
   {
@@ -15,4 +14,5 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   { path: 'fight-screen', component: FightScreenComponent, pathMatch: 'full' },
+  { path: '', component: HomePageComponent, pathMatch: 'full' },
 ];

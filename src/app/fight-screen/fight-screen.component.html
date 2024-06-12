@@ -2,20 +2,20 @@
     <header class="py-2">
         <h1 class="flex justify-center items-center text-gray-50 text-2xl">Floor x</h1>
     </header>
-    <section class="h-12 bg-black/20">
+    
+    <!-- <app-life-bar [entity]="player.getGameClass()"></app-life-bar> -->
 
-    </section>
     <section class="h-max bg-black/20">
         <img src="../../assets/monster.jpg" alt="">
     </section>
-    <section class="h-12 bg-black/20">
 
-    </section>
+    <app-life-bar [entity]="player.getGameClass()"></app-life-bar>
+
     <footer class="grid grid-cols-2 grid-rows-3 uppercase gap-4">
         <button class="btn bg-red-500 hover:opacity-95">Attack</button>
         <button class="btn bg-yellow-500 hover:opacity-95">Defense</button>
         <button class="btn bg-blue-500 hover:opacity-95">Run</button>
         <button class="btn bg-green-500 hover:opacity-95">Items</button>
-        <a href="" class="btn col-span-2 bg-gray-500 hover:opacity-95">Exit</a>
+        <button routerLink="/preparation-screen" [queryParams]="{id: id}"  class="btn col-span-2 bg-gray-500 hover:opacity-95">Exit</button>
     </footer>
 </section>  

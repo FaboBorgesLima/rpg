@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Player } from '../player/player';
+import { GameClass } from '../game-class/game-class';
 
 @Component({
   selector: 'app-life-bar',
@@ -13,35 +14,21 @@ import { Player } from '../player/player';
 export class LifeBarComponent implements OnInit {
   constructor (
     private playerStorage: PlayerStorageService,
-    private router: Router,
-    private activeLink :ActivatedRoute,
   ) {}
 
-  remainingHp: number = 0;
-  player!: Player;
+  @Input({ required: true }) entity!: GameClass;
+  
+  entityLife: number = 0;
+  entityRemainingLife: number = 0;
+  hpBarLevel: string = '';
 
   ngOnInit(): void {
-    const urlId = this.activeLink.snapshot.paramMap.get("id");
-    let playerId: string = "";
-    playerId = urlId ? urlId : "";
-    
-    if(!playerId) {
-      this.router.navigate([""]);
-      return;
-    }
-    const player = this.playerStorage.getById(parseInt(playerId));
-
-    if(!player) {
-      this.router.navigate([""]);
-      return;
-    }
-
-    this.player = player;
-
+    // TESTE ### REMOVER DEPOIS
+    this.entity.receiveAttack(25);
+    // 
+    this.entityLife = this.entity.getLife();
+    this.entityRemainingLife = this.entity.getRemaingLife();
+    this.hpBarLevel = Math.trunc((this.entityRemainingLife / this.entityLife) * 100) + "%";
   }
-
-  // public calcLeftHp(damage: number) {
-  //   this.player
-  // }
-
+  
 }

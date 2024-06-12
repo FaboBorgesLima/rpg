@@ -7,8 +7,9 @@ export abstract class GameClass {
 
   private remainingLife: number = 0;
 
-  constructor(xp: number) {
+  constructor(xp: number, life: number) {
     this.level = new Level(xp);
+    this.setLife(life);
   }
 
   getLevel(): Level {
@@ -26,10 +27,13 @@ export abstract class GameClass {
   getRemaingLife(): number {
     return this.remainingLife;
   }
-  reciveAttack(attack: number): void {
+
+  receiveAttack(attack: number): void {
     this.remainingLife -= attack;
   }
+  
   abstract getLife(): number;
+
   getName() {
     return this.name;
   }

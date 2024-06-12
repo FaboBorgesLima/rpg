@@ -7,14 +7,14 @@ import { Thief } from '../thief/thief';
   providedIn: 'root',
 })
 export class GameClassFactoryService {
-  factory(name: GameClassesNames, xp: number): GameClass {
+  factory(name: GameClassesNames, xp: number, life: number): GameClass {
     switch (name) {
       case 'thief':
-        return new Thief(xp);
+        return new Thief(xp, life);
 
       case 'warrior':
-        return new Warrior(xp);
+        return new Warrior(xp, life);
     }
-    return new Warrior(xp);
+    return new Warrior(xp, life);
   }
 }

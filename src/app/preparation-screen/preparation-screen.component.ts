@@ -40,9 +40,8 @@ export class PreparationScreenComponent implements OnInit {
   }
 
   public toFight():void {
-    console.log(this.id);
     this.router.navigate(["fight-screen"], {
-      queryParams: { id:this.id }
+      queryParams: { id: this.id }
     });
   }
 }

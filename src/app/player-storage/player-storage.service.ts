@@ -23,7 +23,7 @@ export class PlayerStorageService {
 
     return new Player(
       player.name,
-      this.gameClassFactoryService.factory(player.gameClass, player.xp),
+      this.gameClassFactoryService.factory(player.gameClass, player.xp, player.life),
       id,
       this.gameItemFactoryService.factory(player.armor),
       this.gameItemFactoryService.factory(player.weapon),
@@ -55,12 +55,25 @@ export class PlayerStorageService {
 
     const newID = this.getDbLastId(db);
 
-    const newClass = this.gameClassFactoryService.factory(gameClass, 0);
+    let life!: number;
+    switch (gameClass) {
+      case 'warrior':
+        life = 100;
+        break;
+      case 'thief':
+        life = 75;
+        break;
+      default:
+        break;
+    }
+
+    const newClass = this.gameClassFactoryService.factory(gameClass, 0, life);
 
     db[newID] = {
       gameClass: gameClass,
       gameItems: [],
       xp: 0,
+      life: life,
       name: name,
       armor: '',
       weapon: '',
@@ -118,6 +131,7 @@ export class PlayerStorageService {
       gameItems: [],
       name: player.getName(),
       xp: player.getGameClass().getLevel().getXp(),
+      life: player.getGameClass().getLife(),
     };
 
     this.writeDb(db);
@@ -129,6 +143,7 @@ interface Db {
   [k: number]: {
     gameClass: GameClassesNames;
     xp: number;
+    life: number,
     name: string;
     gameItems: string[];
     armor: string;

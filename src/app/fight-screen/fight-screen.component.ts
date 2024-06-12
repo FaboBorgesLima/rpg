@@ -2,12 +2,12 @@ import { LifeBarComponent } from '../life-bar/life-bar.component';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
 import { Player } from './../player/player';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-fight-screen',
   standalone: true,
-  imports: [LifeBarComponent],
+  imports: [LifeBarComponent, RouterLink],
   templateUrl: './fight-screen.component.html',
   styleUrl: './fight-screen.component.css'
 })
@@ -36,6 +36,6 @@ export class FightScreenComponent implements OnInit {
       return;
     }
 
-    this.player = player;
+    this.player! = player;
   }
 }
