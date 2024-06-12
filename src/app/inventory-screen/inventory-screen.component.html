@@ -1,4 +1,4 @@
-<section class="container mx-auto flex flex-col gap-4">
+<section class="container mx-auto flex flex-col gap-4 h-[calc(100vh-5rem)]">
   <h1 class="text-4xl text-center text-gray-50">inventory</h1>
   <app-game-item-card
     [gameItem]="player.armor"
@@ -13,4 +13,6 @@
     [(player)]="player"
     [gameItem]="gameItem"
   ></app-game-item-card>
+  <button routerLink="/preparation-screen" [queryParams]="{id: id}" class="btn bg-blue-500 w-4/5 justify-self-end">Go back</button>
 </section>
+

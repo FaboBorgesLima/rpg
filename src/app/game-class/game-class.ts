@@ -45,4 +45,4 @@ export abstract class GameClass {
   abstract getSpeed(): number;
 }
 
-export type GameClassesNames = 'thief' | 'warrior';
+export type GameClassesNames = 'thief' | 'warrior' | 'mob';

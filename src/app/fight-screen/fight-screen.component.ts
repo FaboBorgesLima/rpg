@@ -17,7 +17,9 @@ export class FightScreenComponent implements OnInit {
     public playerStorage: PlayerStorageService,
     private router: Router
   ) {}
+  
   id: string = '';
+  floor: number = 1;
   player!: Player;
 
   ngOnInit(): void {

@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
 import { Player } from '../player/player';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { GameItemCardComponent } from '../game-item-card/game-item-card.component';
 import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-inventory-screen',
   standalone: true,
-  imports: [GameItemCardComponent, NgFor],
+  imports: [GameItemCardComponent, NgFor, RouterLink],
   templateUrl: './inventory-screen.component.html',
   styleUrl: './inventory-screen.component.css',
 })
