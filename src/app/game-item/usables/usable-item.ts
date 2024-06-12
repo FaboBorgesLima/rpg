@@ -1,4 +1,4 @@
-import { GameItem } from './game-item';
+import { GameItem } from '../game-item';
 
 export abstract class UsableItem extends GameItem {
   constructor(name: string) {
