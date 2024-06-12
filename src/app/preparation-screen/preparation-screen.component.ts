@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
 import { Player } from '../player/player';
 
@@ -37,5 +37,9 @@ export class PreparationScreenComponent implements OnInit {
     }
 
     this.player = player;
+  }
+  goToInventory(): void {
+    const idParam: Params = { id: this.id };
+    this.router.navigate(['/inventory'], { queryParams: idParam });
   }
 }

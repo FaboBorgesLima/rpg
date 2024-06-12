@@ -1,11 +1,14 @@
 export abstract class GameItem {
-  protected abstract itemType: ItemType;
-  protected constructor(protected name: string) {}
+  private randomHash: string = '';
+  protected constructor(protected name: string, private itemType: ItemType) {}
   getName(): string {
     return this.name;
   }
   getItemType(): ItemType {
     return this.itemType;
   }
+  abstract getProtection(): number;
+  abstract getDamage(): number;
+  abstract getLifeRegen(): number;
 }
-type ItemType = 'usable' | 'weapon' | 'armor';
+export type ItemType = 'usable' | 'weapon' | 'armor';

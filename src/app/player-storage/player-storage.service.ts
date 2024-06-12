@@ -59,11 +59,11 @@ export class PlayerStorageService {
 
     db[newID] = {
       gameClass: gameClass,
-      gameItems: [],
+      gameItems: ['sword'],
       xp: 0,
       name: name,
-      armor: '',
-      weapon: '',
+      armor: 'clothes',
+      weapon: 'fists',
     };
 
     this.writeDb(db);
@@ -72,8 +72,8 @@ export class PlayerStorageService {
       name,
       newClass,
       newID,
-      this.gameItemFactoryService.factory(''),
-      this.gameItemFactoryService.factory(''),
+      this.gameItemFactoryService.factory(db[newID].armor),
+      this.gameItemFactoryService.factory(db[newID].weapon),
       []
     );
   }
