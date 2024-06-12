@@ -19,7 +19,7 @@ export class Player extends Entity {
     return this.id;
   }
 
-  override getGameClass(): GameClass {
+  public getGameClass(): GameClass {
     return this.gameClass;
   }
 }

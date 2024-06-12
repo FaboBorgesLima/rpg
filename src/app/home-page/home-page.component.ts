@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MobService } from '../mob-service/mob.service';
 
 @Component({
   selector: 'app-home-page',
@@ -8,4 +9,12 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
-export class HomePageComponent {}
+export class HomePageComponent implements OnInit {
+  // Delete this later :)
+  constructor (
+    private mobService: MobService,
+  ) {}
+  ngOnInit(): void {
+    this.mobService.logMonster();
+  }
+}

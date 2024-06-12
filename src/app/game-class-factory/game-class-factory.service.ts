@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GameClass, GameClassesNames } from '../game-class/game-class';
 import { Warrior } from '../warrior/warrior';
 import { Thief } from '../thief/thief';
+import { Mob } from '../mob/mob';
 
 @Injectable({
   providedIn: 'root',

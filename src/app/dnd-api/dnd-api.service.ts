@@ -105,7 +105,7 @@ export interface MonstersListReponse {
 }
 
 /**
- * this interface is incomplete, there is a lot of stuff in the api, but there is no need to all of then
+ * this interface is incomplete, there is a lot of stuff in the api, but there is no need to all of them
  */
 export interface MonsterPropertiesReponse {
   index: string;
