@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
 import { Player } from '../player/player';
 
@@ -43,5 +43,10 @@ export class PreparationScreenComponent implements OnInit {
     this.router.navigate(["fight-screen"], {
       queryParams: { id: this.id }
     });
+  }
+
+  public goToInventory(): void {
+    const idParam: Params = { id: this.id };
+    this.router.navigate(['/inventory'], { queryParams: idParam });
   }
 }

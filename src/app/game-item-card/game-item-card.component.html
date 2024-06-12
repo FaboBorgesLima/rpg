@@ -1,0 +1,21 @@
+<section
+  [ngSwitch]="gameItem.getItemType()"
+  class="[&_*]:text-white bg-black/20 p-4 flex flex-col gap-4 hover:[&_a]:shadow-lg"
+>
+  <h1 class="text-white text-xl">
+    {{ gameItem.getItemType() }}: {{ gameItem.getName() }}
+  </h1>
+  <p *ngSwitchCase="'armor'">protection: {{ gameItem.getProtection() }}</p>
+  <p *ngSwitchCase="'usable'">life regen: {{ gameItem.getLifeRegen() }}</p>
+  <p *ngSwitchCase="'weapon'">damage: {{ gameItem.getDamage() }}</p>
+  <button
+    (click)="onEquip()"
+    *ngIf="
+      gameItem != player.armor &&
+      gameItem != player.weapon &&
+      gameItem.getItemType() != 'usable'
+    "
+  >
+    equip
+  </button>
+</section>

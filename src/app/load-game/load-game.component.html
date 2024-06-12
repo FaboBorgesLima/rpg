@@ -7,7 +7,7 @@
   <div class="bg-black/20 p-4 flex flex-col gap-4 hover:[&_a]:shadow-lg">
     <button
       *ngFor="let player of playerStorageService.all(); index as i"
-      class="btn even: hover:opacity-95"
+      class="btn hover:opacity-95"
       [class.bg-red-500]="i % 3 == 0"
       [class.bg-yellow-500]="i % 3 == 1"
       [class.bg-blue-500]="i % 3 == 2"

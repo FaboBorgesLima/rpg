@@ -1,0 +1,11 @@
+import { GameItem } from '../../game-item';
+import { WeaponItem } from '../weapon-item';
+
+export class Fists extends WeaponItem {
+  public getDamage(): number {
+    return 1;
+  }
+  public constructor() {
+    super('fists');
+  }
+}
