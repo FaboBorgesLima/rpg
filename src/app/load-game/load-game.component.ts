@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, Params } from '@angular/router';
-import { Player } from '../player/player';
+import { Player } from '../entity/player/player';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
 
 @Component({

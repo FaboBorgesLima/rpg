@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GameItem } from '../game-item/game-item';
 import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
-import { Player } from '../player/player';
+import { Player } from '../entity/player/player';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
 import { GameItemFactoryService } from '../game-item-factory/game-item-factory.service';
 

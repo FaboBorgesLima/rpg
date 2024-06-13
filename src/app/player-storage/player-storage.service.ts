@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Player } from '../player/player';
+import { Player } from '../entity/player/player';
 import { GameClassFactoryService } from '../game-class-factory/game-class-factory.service';
 import { GameClassesNames } from '../game-class/game-class';
 import { GameItemFactoryService } from '../game-item-factory/game-item-factory.service';
@@ -23,7 +23,7 @@ export class PlayerStorageService {
 
     return new Player(
       player.name,
-      this.gameClassFactoryService.factory(player.gameClass, player.xp, player.life),
+      this.gameClassFactoryService.factory(player.gameClass, player.xp),
       id,
       this.gameItemFactoryService.factory(player.armor),
       this.gameItemFactoryService.factory(player.weapon),
@@ -55,25 +55,12 @@ export class PlayerStorageService {
 
     const newID = this.getDbLastId(db);
 
-    let life!: number;
-    switch (gameClass) {
-      case 'warrior':
-        life = 100;
-        break;
-      case 'thief':
-        life = 75;
-        break;
-      default:
-        break;
-    }
-
-    const newClass = this.gameClassFactoryService.factory(gameClass, 0, life);
+    const newClass = this.gameClassFactoryService.factory(gameClass, 0);
 
     db[newID] = {
       gameClass: gameClass,
       gameItems: ['sword'],
       xp: 0,
-      life: life,
       name: name,
       armor: 'clothes',
       weapon: 'fists',
@@ -131,7 +118,6 @@ export class PlayerStorageService {
       gameItems: player.gameItems.map((item) => item.getName()),
       name: player.getName(),
       xp: player.getGameClass().getLevel().getXp(),
-      life: player.getGameClass().getLife(),
     };
 
     this.writeDb(db);
@@ -154,7 +140,6 @@ interface Db {
   [k: number]: {
     gameClass: GameClassesNames;
     xp: number;
-    life: number,
     name: string;
     gameItems: string[];
     armor: string;

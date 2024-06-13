@@ -1,6 +1,6 @@
-import { Entity } from '../entity/entity';
-import { GameClass } from '../game-class/game-class';
-import { GameItem } from '../game-item/game-item';
+import { Entity } from '../entity';
+import { GameClass } from '../../game-class/game-class';
+import { GameItem } from '../../game-item/game-item';
 
 export class Player extends Entity {
   constructor(

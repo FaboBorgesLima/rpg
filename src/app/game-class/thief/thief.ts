@@ -1,9 +1,9 @@
-import { GameClass, GameClassesNames } from '../game-class/game-class';
+import { GameClass, GameClassesNames } from '../game-class';
 
 export class Thief extends GameClass {
   protected override name: GameClassesNames = 'thief';
-  constructor(xp: number, life: number) {
-    super(xp, life);
+  constructor(xp: number) {
+    super(xp);
   }
   override getAttack(): number {
     return this.level.getLevelAmount() * 2 + 15;

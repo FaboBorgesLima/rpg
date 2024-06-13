@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
-import { Player } from '../player/player';
+import { Player } from '../entity/player/player';
 
 @Component({
   selector: 'app-preparation-screen',
@@ -39,9 +39,9 @@ export class PreparationScreenComponent implements OnInit {
     this.player = player;
   }
 
-  public toFight():void {
-    this.router.navigate(["fight-screen"], {
-      queryParams: { id: this.id }
+  public toFight(): void {
+    this.router.navigate(['fight-screen'], {
+      queryParams: { id: this.id },
     });
   }
 
