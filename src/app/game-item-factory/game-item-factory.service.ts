@@ -10,13 +10,17 @@ import { Fists } from '../game-item/weapons/fists/fists';
 export class GameItemFactoryService {
   factory(name: string): GameItem {
     switch (name) {
-      case 'clothes':
+      case new Clothes().getName():
         return new Clothes();
-      case 'fists':
+      case new Fists().getName():
         return new Fists();
-      case 'sword':
+      case new Sword().getName():
         return new Sword();
     }
+    return new Clothes();
+  }
+
+  getDefault(): GameItem {
     return new Clothes();
   }
 }

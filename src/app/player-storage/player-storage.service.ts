@@ -138,6 +138,17 @@ export class PlayerStorageService {
 
     return player;
   }
+
+  getDefaultPlayer(id: number): Player {
+    return new Player(
+      '',
+      this.gameClassFactoryService.factory('warrior', 0),
+      id,
+      this.gameItemFactoryService.factory('fists'),
+      this.gameItemFactoryService.factory('fists'),
+      []
+    );
+  }
 }
 interface Db {
   [k: number]: {

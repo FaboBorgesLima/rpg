@@ -19,7 +19,7 @@ export class InventoryScreenComponent {
     private router: Router
   ) {}
   id: string = '';
-  player!: Player;
+  player: Player = this.playerStorageService.getDefaultPlayer(0);
 
   ngOnInit(): void {
     const urlId = this.activatedRoute.snapshot.queryParamMap.get('id');
@@ -38,7 +38,5 @@ export class InventoryScreenComponent {
     }
 
     this.player = player;
-
-    this.player.gameItems
   }
 }
