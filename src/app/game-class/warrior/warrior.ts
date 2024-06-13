@@ -1,3 +1,4 @@
+import { nFactorial } from '../../helpers/nfactorial';
 import { GameClass, GameClassesNames } from '../game-class';
 
 export class Warrior extends GameClass {
@@ -5,16 +6,16 @@ export class Warrior extends GameClass {
   constructor(xp: number) {
     super(xp);
   }
-  override getLife(): number {
-    return this.level.getLevelAmount() * 50 + 50;
+  override getMaxHealthPoints(): number {
+    return nFactorial(this.level.getLevelAmount() / 2) * 5 + 16;
   }
   override getAttack(): number {
-    return this.level.getLevelAmount() * 5 + 20;
+    return this.level.getLevelAmount() * 1 + 12;
   }
   override getDefense(): number {
-    return this.level.getLevelAmount() * 1 + 5;
+    return nFactorial(this.level.getLevelAmount()) * 2 + 1;
   }
   override getSpeed(): number {
-    return this.level.getLevelAmount() * 1 + 5;
+    return nFactorial(this.level.getLevelAmount()) * 0.5 + 8;
   }
 }

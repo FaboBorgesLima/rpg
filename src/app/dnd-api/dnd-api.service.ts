@@ -118,4 +118,5 @@ export interface MonsterPropertiesReponse {
   image?: string;
   url: string;
   hit_points: number;
+  constitution: number;
 }

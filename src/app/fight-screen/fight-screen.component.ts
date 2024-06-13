@@ -23,8 +23,8 @@ export class FightScreenComponent implements OnInit {
   ) {}
 
   id: string = '';
-  floor: number = 1;
-  player!: Player;
+  floor: number = 0;
+  player: Player = this.playerStorage.getDefaultPlayer(0);
   mob: MobEntity = MobEntity.getDefault();
 
   ngOnInit(): void {
@@ -40,66 +40,87 @@ export class FightScreenComponent implements OnInit {
 
     this.player = player;
 
-    console.log(this.player.getGameClass().getLevel().getLevelAmount());
+    this.floor = this.player.getGameClass().getLevel().getLevelAmount();
 
-    this.mobEntityFactory
-      .factory(this.player.getGameClass().getLevel().getLevelAmount())
-      .subscribe({
-        next: (newMob) => {
-          this.mob = newMob;
-        },
-      });
+    this.mobEntityFactory.factory(this.floor).subscribe({
+      next: (newMob) => {
+        this.mob = newMob;
+      },
+    });
 
     if (!this.id) {
-      this.router.navigate(['']);
+      this.router.navigate(['load-game']);
       return;
     }
-  }
-
-  // TODO: we need to move most of the combat logic into some class, i'm thinking about creating a "entity-action" object so a action can respond to a action (defending a attack, attaking a defense, running a attack,etc...)
-  onAttack() {
-    this.mob
-      .getGameClass()
-      .receiveAttack(this.player.getGameClass().getAttack());
-
-    this.onRound();
   }
 
   onRound() {
-    if (!this.mob.getGameClass().isAlive()) {
-      const xpPlayer = this.player.getGameClass().getLevel().getXp();
-      const xpMob = this.mob.getGameClass().getLevel().getXp();
+    // randomize mob.action
+    this.mob.setThoughtAction(this.player);
 
-      this.player
-        .getGameClass()
-        .getLevel()
-        .setXp(xpPlayer + xpMob);
+    this.mob.reciveAction(this.player);
 
-      this.playerStorage.update(this.player);
+    this.player.reciveAction(this.mob);
+
+    if (
+      this.player.action == 'run' &&
+      this.player.getRunAwayChance(this.mob) > Math.random()
+    ) {
+      alert(`you run away from ${this.mob.getName()}`);
       this.router.navigate(['preparation-screen'], {
         queryParams: { id: this.id },
       });
       return;
     }
 
-    if (!this.player.getGameClass().isAlive()) {
-      const xpPlayer = this.player.getGameClass().getLevel().getXp();
-      const xpMob = this.mob.getGameClass().getLevel().getXp();
-
-      this.player
-        .getGameClass()
-        .getLevel()
-        .setXp(xpPlayer - xpMob);
-
-      this.playerStorage.update(this.player);
+    if (
+      this.mob.action == 'run' &&
+      this.mob.getRunAwayChance(this.player) > Math.random()
+    ) {
+      alert(`${this.mob.getName()} run away from you`);
       this.router.navigate(['preparation-screen'], {
         queryParams: { id: this.id },
       });
       return;
     }
 
-    this.player
-      .getGameClass()
-      .receiveAttack(this.mob.getGameClass().getAttack());
+    if (!this.mob.isAlive()) {
+      const playerXp = this.player.getGameClass().getLevel().getXp();
+      const monsterXp = this.mob.getGameClass().getLevel().getXp();
+
+      this.player
+        .getGameClass()
+        .getLevel()
+        .setXp(playerXp + monsterXp);
+
+      this.playerStorage.update(this.player);
+
+      alert(`you killed the beast, you won ${monsterXp}xp`);
+
+      this.router.navigate(['preparation-screen'], {
+        queryParams: { id: this.id },
+      });
+
+      return;
+    }
+    if (!this.player.isAlive()) {
+      const playerXp = this.player.getGameClass().getLevel().getXp();
+      const monsterXp = this.mob.getGameClass().getLevel().getXp();
+
+      this.player
+        .getGameClass()
+        .getLevel()
+        .setXp(playerXp - monsterXp);
+
+      this.playerStorage.update(this.player);
+
+      alert(`you died, you lost ${monsterXp}xp`);
+
+      this.router.navigate(['preparation-screen'], {
+        queryParams: { id: this.id },
+      });
+
+      return;
+    }
   }
 }

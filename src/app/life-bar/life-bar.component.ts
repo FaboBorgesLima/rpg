@@ -13,4 +13,12 @@ import { Entity } from '../entity/entity';
 })
 export class LifeBarComponent {
   @Input({ required: true }) entity!: Entity;
+
+  getLength(ent: Entity): string {
+    return `${this.entity.getRemainingLifePercentage() * 100}%`;
+  }
+
+  min0(n: number): number {
+    return Math.max(n, 0);
+  }
 }

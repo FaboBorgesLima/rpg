@@ -24,7 +24,7 @@ export class MobEntityFactoryService {
             'mob',
             monsterProps.hit_points,
             monsterProps.strength,
-            0,
+            monsterProps.constitution * 2,
             monsterProps.dexterity
           );
           subscriber.next(

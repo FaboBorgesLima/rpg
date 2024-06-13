@@ -1,23 +1,20 @@
-import { Entity } from '../entity';
+import { Entity, EntityAction } from '../entity';
 import { GameClass } from '../../game-class/game-class';
 import { GameItem } from '../../game-item/game-item';
 
 export class Player extends Entity {
+  public action: EntityAction = 'defense';
   constructor(
     name: string,
-    protected gameClass: GameClass,
+    protected playerClass: GameClass,
     protected id: number,
-    public armor: GameItem,
-    public weapon: GameItem,
+    armor: GameItem,
+    weapon: GameItem,
     public gameItems: GameItem[]
   ) {
-    super(name);
+    super(name, playerClass, armor, weapon);
   }
   getId(): number {
     return this.id;
-  }
-
-  public getGameClass(): GameClass {
-    return this.gameClass;
   }
 }
