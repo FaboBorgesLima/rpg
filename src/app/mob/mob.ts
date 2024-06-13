@@ -1,24 +1,28 @@
-import { Entity } from "../entity/entity";
+import { Entity } from '../entity/entity';
 
 export class Mob extends Entity {
-    constructor(
-        name: string,
-        public xp: number, // Xp given on death
-        public attack: number,
-        public defense: number,
-        public hp: number,
-        public image: string,
-        public url: string,
-    ) {
-        super(name)
-    }
+  constructor(
+    name: string,
+    public xp: number, // Xp given on death
+    public attack: number,
+    public defense: number,
+    public hp: number,
+    public image: string,
+    public url: string
+  ) {
+    super(name);
+  }
 
-    public getXp(): number {
-        return this.xp;
-    }
-    // public damageOpponent(): number {
-    //     return this.numberBetween()
-    // }
+  public getXp(): number {
+    return this.xp;
+  }
+  // public damageOpponent(): number {
+  //     return this.numberBetween()
+  // }
+
+  static getDefault(): Mob {
+    return new Mob('404', 100, 10, 10, 404, '', '');
+  }
 
   /**
    *

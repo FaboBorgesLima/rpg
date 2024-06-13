@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { dndApiDomain } from '../app.config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DndApiService {
-  private domain: string = 'https://www.dnd5eapi.co';
+  private domain: string = dndApiDomain;
   constructor(private httpClient: HttpClient) {}
 
   /**
@@ -114,7 +115,7 @@ export interface MonsterPropertiesReponse {
   strength: number;
   dexterity: number;
   xp: number;
-  image: string;
+  image?: string;
   url: string;
   hit_points: number;
 }

@@ -10,3 +10,5 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule),
   ],
 };
+
+export const dndApiDomain = 'https://www.dnd5eapi.co';
