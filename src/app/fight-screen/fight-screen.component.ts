@@ -56,6 +56,7 @@ export class FightScreenComponent implements OnInit {
     }
   }
 
+  // TODO: we need to move most of the combat logic into some class, i'm thinking about creating a "entity-action" object so a action can respond to a action (defending a attack, attaking a defense, running a attack,etc...)
   onAttack() {
     this.mob
       .getGameClass()
@@ -65,10 +66,7 @@ export class FightScreenComponent implements OnInit {
   }
 
   onRound() {
-    if (
-      this.player.getGameClass().isAlive() &&
-      !this.mob.getGameClass().isAlive()
-    ) {
+    if (!this.mob.getGameClass().isAlive()) {
       const xpPlayer = this.player.getGameClass().getLevel().getXp();
       const xpMob = this.mob.getGameClass().getLevel().getXp();
 
@@ -83,6 +81,23 @@ export class FightScreenComponent implements OnInit {
       });
       return;
     }
+
+    if (!this.player.getGameClass().isAlive()) {
+      const xpPlayer = this.player.getGameClass().getLevel().getXp();
+      const xpMob = this.mob.getGameClass().getLevel().getXp();
+
+      this.player
+        .getGameClass()
+        .getLevel()
+        .setXp(xpPlayer - xpMob);
+
+      this.playerStorage.update(this.player);
+      this.router.navigate(['preparation-screen'], {
+        queryParams: { id: this.id },
+      });
+      return;
+    }
+
     this.player
       .getGameClass()
       .receiveAttack(this.mob.getGameClass().getAttack());

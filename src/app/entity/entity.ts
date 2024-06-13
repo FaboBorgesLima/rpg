@@ -6,5 +6,6 @@ export abstract class Entity {
   getName(): string {
     return this.name;
   }
+
   abstract getGameClass(): GameClass;
 }
