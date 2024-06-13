@@ -3,6 +3,7 @@ import { DndApiService } from '../dnd-api/dnd-api.service';
 import { Observable } from 'rxjs';
 import { MobEntity } from '../entity/mob-entity/mob-entity';
 import { MobClass } from '../game-class/mob-class/mob-class';
+import { dndApiDomain } from '../app.config';
 
 @Injectable({
   providedIn: 'root',
@@ -18,18 +19,19 @@ export class MobEntityFactoryService {
           subscriber.complete();
         },
         next: (monsterProps) => {
+          const mobClass = new MobClass(
+            monsterProps.xp,
+            'mob',
+            monsterProps.hit_points,
+            monsterProps.strength,
+            0,
+            monsterProps.dexterity
+          );
           subscriber.next(
             new MobEntity(
-              new MobClass(
-                monsterProps.xp,
-                'mob',
-                monsterProps.hit_points,
-                monsterProps.strength,
-                0,
-                monsterProps.dexterity
-              ),
+              mobClass,
               monsterProps.name,
-              monsterProps.image ? monsterProps.image : ''
+              monsterProps.image ? `${dndApiDomain}${monsterProps.image}` : ''
             )
           );
           subscriber.complete();

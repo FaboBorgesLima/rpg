@@ -1,6 +1,20 @@
-<section 
-class="h-2 w-full bg-gray-600 relative rounded-lg"
->
-    <div [style.width]="hpBarLevel" class="h-2 bg-red-500 absolute top-0 left-0 z-10 rounded-lg"></div>
+<p class="pt-2 text-gray-50">
+  {{ entity.getName() }}
+</p>
+<section class="h-2 w-full bg-gray-600 relative rounded-lg">
+  <div
+    [style.width]="
+      (
+        (entity.getGameClass().getRemaingLife() /
+          entity.getGameClass().getLife()) *
+        100
+      ).toString() + '%'
+    "
+    class="h-2 bg-red-500 absolute top-0 left-0 z-10 rounded-lg"
+  ></div>
 </section>
-<p class="pt-2 text-gray-50">{{ entityRemainingLife }}/{{ entityLife }}</p>
+<p class="pt-2 text-gray-50">
+  {{ entity.getGameClass().getRemaingLife() }}/{{
+    entity.getGameClass().getLife()
+  }}
+</p>

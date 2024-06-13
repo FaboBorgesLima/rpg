@@ -5,16 +5,18 @@
     </h1>
   </header>
 
-  <app-life-bar [entity]="player.getGameClass()"></app-life-bar>
+  <app-life-bar [entity]="mob"></app-life-bar>
 
-  <section class="h-max w-4/5 mx-auto bg-black/20">
-    <img [src]="mob.image" alt="" class="mx-auto" />
+  <section class="w-4/5 xl:w-3/5 mx-auto bg-black/20">
+    <img [src]="mob.image" alt="" class="aspect-video w-full object-cover" />
   </section>
 
-  <app-life-bar [entity]="player.getGameClass()"></app-life-bar>
+  <app-life-bar [entity]="player"></app-life-bar>
 
   <footer class="grid grid-cols-2 grid-rows-2 uppercase gap-4 pb-4">
-    <button class="btn bg-red-500 hover:opacity-95">Attack</button>
+    <button class="btn bg-red-500 hover:opacity-95" (click)="onAttack()">
+      Attack
+    </button>
     <button class="btn bg-yellow-500 hover:opacity-95">Defense</button>
     <button
       routerLink="/preparation-screen"

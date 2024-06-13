@@ -31,18 +31,6 @@ export class FightScreenComponent implements OnInit {
     const urlId = this.activatedRoute.snapshot.queryParamMap.get('id');
     this.id = urlId ? urlId : '';
 
-    this.mobEntityFactory.factory().subscribe({
-      next: (newMob) => {
-        this.mob = newMob;
-        console.log(this.mob);
-      },
-    });
-
-    if (!this.id) {
-      this.router.navigate(['']);
-      return;
-    }
-
     const player = this.playerStorage.getById(parseInt(this.id));
 
     if (!player) {
@@ -50,6 +38,53 @@ export class FightScreenComponent implements OnInit {
       return;
     }
 
-    this.player! = player;
+    this.player = player;
+
+    console.log(this.player.getGameClass().getLevel().getLevelAmount());
+
+    this.mobEntityFactory
+      .factory(this.player.getGameClass().getLevel().getLevelAmount())
+      .subscribe({
+        next: (newMob) => {
+          this.mob = newMob;
+        },
+      });
+
+    if (!this.id) {
+      this.router.navigate(['']);
+      return;
+    }
+  }
+
+  onAttack() {
+    this.mob
+      .getGameClass()
+      .receiveAttack(this.player.getGameClass().getAttack());
+
+    this.onRound();
+  }
+
+  onRound() {
+    if (
+      this.player.getGameClass().isAlive() &&
+      !this.mob.getGameClass().isAlive()
+    ) {
+      const xpPlayer = this.player.getGameClass().getLevel().getXp();
+      const xpMob = this.mob.getGameClass().getLevel().getXp();
+
+      this.player
+        .getGameClass()
+        .getLevel()
+        .setXp(xpPlayer + xpMob);
+
+      this.playerStorage.update(this.player);
+      this.router.navigate(['preparation-screen'], {
+        queryParams: { id: this.id },
+      });
+      return;
+    }
+    this.player
+      .getGameClass()
+      .receiveAttack(this.mob.getGameClass().getAttack());
   }
 }

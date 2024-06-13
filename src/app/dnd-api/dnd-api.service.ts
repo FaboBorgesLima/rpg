@@ -12,7 +12,7 @@ export class DndApiService {
 
   /**
    *
-   * @param challengeRating needs to be a number between 0 and 30
+   * @param challengeRating needs to be a number between 0 and 20
    * @returns
    */
   getMonstersList(challengeRating?: number): Observable<MonstersListReponse> {
@@ -21,7 +21,7 @@ export class DndApiService {
         this.domain + '/api/monsters',
         {
           params: {
-            challenge_rating: this.numberBetween(challengeRating, 0, 30),
+            challenge_rating: this.numberBetween(challengeRating, 0, 20),
           },
         }
       );
@@ -54,7 +54,7 @@ export class DndApiService {
           next: (monstersList) => {
             // generate random index
             const randomIndex = Math.trunc(
-              (monstersList.results.length + 1) * Math.random()
+              monstersList.results.length * Math.random()
             );
 
             this.getMonsterByIndex(

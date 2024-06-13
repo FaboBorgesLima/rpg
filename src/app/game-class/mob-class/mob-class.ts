@@ -11,6 +11,7 @@ export class MobClass extends GameClass {
   ) {
     super(xp);
     this.name = name;
+    this.resetLife();
   }
   protected override name: GameClassesNames;
   override getLife(): number {

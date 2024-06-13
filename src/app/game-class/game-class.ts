@@ -16,6 +16,10 @@ export abstract class GameClass {
     return this.level;
   }
 
+  resetLife() {
+    this.remainingLife = this.getLife();
+  }
+
   isAlive(): boolean {
     return this.remainingLife > 0;
   }
