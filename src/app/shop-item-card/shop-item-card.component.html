@@ -1,0 +1,22 @@
+<section class="[&_*]:text-white bg-black/20 p-4 flex flex-col gap-4">
+  <h1 class="text-2xl">{{ item.getItemType() }}: {{ item.getName() }}</h1>
+  <div class="grid sm:grid-cols-2 gap-4 [&>div>span]:text-xl">
+    <div>
+      <span *ngIf="item.getDamage()" class=""
+        >damage: {{ item.getDamage() }}</span
+      >
+      <span *ngIf="item.getLifeRegen()" class=""
+        >life regen: {{ item.getLifeRegen() }}</span
+      >
+      <span *ngIf="item.getProtection()" class=""
+        >protection: {{ item.getProtection() }}</span
+      >
+    </div>
+    <div>
+      <span>price: {{ item.getPrice() }}</span>
+    </div>
+  </div>
+  <button class="btn bg-red-500 w-full text-xl" (click)="onBuy()">
+    Buy({{ item.getPrice() }})
+  </button>
+</section>

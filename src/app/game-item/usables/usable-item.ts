@@ -1,8 +1,8 @@
 import { GameItem } from '../game-item';
 
 export abstract class UsableItem extends GameItem {
-  constructor(name: string) {
-    super(name, 'usable');
+  constructor(name: string, price: number) {
+    super(name, 'usable', price);
   }
   override getDamage(): number {
     return 0;

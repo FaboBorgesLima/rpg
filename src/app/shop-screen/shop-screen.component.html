@@ -1,0 +1,27 @@
+<div class="container mx-auto gap-4 flex flex-col m-4">
+  <h1 class="text-gray-50 text-4xl text-center">
+    {{ player.getGold().getAmount() }} gold
+  </h1>
+  <div class="grid sm:grid-cols-3 gap-4">
+    <button
+      class="btn w-full text-lg bg-blue-500"
+      (click)="filterBy = 'usable'"
+    >
+      usable
+    </button>
+    <button
+      class="btn w-full text-lg bg-green-500"
+      (click)="filterBy = 'armor'"
+    >
+      armor
+    </button>
+    <button class="btn w-full text-lg bg-red-500" (click)="filterBy = 'weapon'">
+      weapon
+    </button>
+  </div>
+  <app-shop-item-card
+    *ngFor="let item of getItemsFiltered(filterBy)"
+    [item]="item"
+    [(player)]="player"
+  ></app-shop-item-card>
+</div>

@@ -1,8 +1,8 @@
 import { GameItem } from '../game-item';
 
 export abstract class WeaponItem extends GameItem {
-  constructor(name: string) {
-    super(name, 'weapon');
+  constructor(name: string, price: number) {
+    super(name, 'weapon', price);
   }
 
   override getLifeRegen(): number {
