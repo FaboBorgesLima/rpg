@@ -6,6 +6,7 @@ import { NgFor } from '@angular/common';
 import { GameItemFactoryService } from '../game-item-factory/game-item-factory.service';
 import { ShopItemCardComponent } from '../shop-item-card/shop-item-card.component';
 import { GameItem, ItemType } from '../game-item/game-item';
+import { GameItemFilterService } from '../game-item-filter/game-item-filter.service';
 
 @Component({
   selector: 'app-shop-screen',
@@ -23,7 +24,8 @@ export class ShopScreenComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private playerStorage: PlayerStorageService,
-    public gameItemsFactory: GameItemFactoryService
+    public gameItemsFactory: GameItemFactoryService,
+    public gameItemFilter: GameItemFilterService
   ) {}
   player: Player = this.playerStorage.getDefaultPlayer(0);
 
@@ -53,31 +55,15 @@ export class ShopScreenComponent implements OnInit {
       case 'usable':
         return this.gameItemsFactory.getUsables();
       case 'weapon':
-        return this.removeAlreadyBuyed(this.gameItemsFactory.getWeapons());
+        return this.gameItemFilter.removeAlreadyBuyed(
+          this.gameItemsFactory.getWeapons(),
+          this.player
+        );
       case 'armor':
-        return this.removeAlreadyBuyed(this.gameItemsFactory.getArmors());
+        return this.gameItemFilter.removeAlreadyBuyed(
+          this.gameItemsFactory.getArmors(),
+          this.player
+        );
     }
-  }
-
-  removeAlreadyBuyed(items: GameItem[]): GameItem[] {
-    const filteredItems: GameItem[] = [];
-
-    for (const item of items) {
-      if (!this.containsInPlayerItems(item)) filteredItems.push(item);
-    }
-
-    return filteredItems;
-  }
-
-  containsInPlayerItems(item: GameItem): boolean {
-    if (this.player.armor.getName() == item.getName()) return true;
-
-    if (this.player.weapon.getName() == item.getName()) return true;
-
-    for (const playerItem of this.player.gameItems) {
-      if (playerItem.getName() == item.getName()) return true;
-    }
-
-    return false;
   }
 }
