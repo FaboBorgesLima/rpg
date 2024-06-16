@@ -6,9 +6,16 @@
     <button
       (click)="closeMenu()"
       class="h-full p-4 bg-brown-500 text-3xl font-bold text-gray-50"
-    >
+    ></button>
+    <section class="h-full w-full bg-brown-600/90 p-4 flex flex-col gap-4">
+      <h1 class="text-center text-4xl text-gray-50">menu</h1>
+      <button
+        class="btn w-full bg-blue-500 text-lg"
+        routerLink="/"
+        (click)="closeMenu()"
       >
-    </button>
-    <div class="h-full w-full bg-brown-600/90"></div>
+        return to home (if you're in a battle, all progress will be lost)
+      </button>
+    </section>
   </div>
 </div>
