@@ -1,4 +1,4 @@
-<div [ngSwitch]="name" class="aspect-square w-16">
+<div [ngSwitch]="name" class="aspect-square w-16 [&>div>img]:text-gray-50">
   <div *ngSwitchCase="'scroll'" class="aspect-square w-16" [title]="alt">
     <img
       src="https://faboborgeslima.github.io/rpg/assets/scroll.png"
