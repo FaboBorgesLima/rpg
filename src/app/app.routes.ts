@@ -5,6 +5,7 @@ import { LoadGameComponent } from './load-game/load-game.component';
 import { PreparationScreenComponent } from './preparation-screen/preparation-screen.component';
 import { InventoryScreenComponent } from './inventory-screen/inventory-screen.component';
 import { FightScreenComponent } from './fight-screen/fight-screen.component';
+import { ShopScreenComponent } from './shop-screen/shop-screen.component';
 
 export const routes: Routes = [
   { path: 'new-game', component: NewGameComponent, pathMatch: 'full' },
@@ -16,5 +17,6 @@ export const routes: Routes = [
   },
   { path: 'inventory', component: InventoryScreenComponent, pathMatch: 'full' },
   { path: 'fight-screen', component: FightScreenComponent, pathMatch: 'full' },
+  { path: 'shop', component: ShopScreenComponent, pathMatch: 'full' },
   { path: '', component: HomePageComponent, pathMatch: 'full' },
 ];

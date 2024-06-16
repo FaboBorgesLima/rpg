@@ -87,15 +87,20 @@ export class FightScreenComponent implements OnInit {
     if (!this.mob.isAlive()) {
       const playerXp = this.player.getGameClass().getLevel().getXp();
       const monsterXp = this.mob.getGameClass().getLevel().getXp();
+      const monsterGold = this.mob.getGold().getAmount();
 
       this.player
         .getGameClass()
         .getLevel()
         .setXp(playerXp + monsterXp);
 
+      this.player.getGold().add(monsterGold);
+
       this.playerStorage.update(this.player);
 
-      alert(`you killed the beast, you won ${monsterXp}xp`);
+      alert(
+        `you killed the beast, you won ${monsterXp}xp and ${monsterGold} gold`
+      );
 
       this.router.navigate(['preparation-screen'], {
         queryParams: { id: this.id },

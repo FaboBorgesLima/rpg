@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
 import { Player } from '../entity/player/player';
 
 @Component({
   selector: 'app-preparation-screen',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './preparation-screen.component.html',
   styleUrl: './preparation-screen.component.css',
   host: { class: 'grow flex flex-col' },

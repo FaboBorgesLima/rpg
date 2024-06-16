@@ -1,3 +1,4 @@
+import { Currency } from '../../currency/currency';
 import { GameClass } from '../../game-class/game-class';
 import { MobClass } from '../../game-class/mob-class/mob-class';
 import { Clothes } from '../../game-item/armors/clothes/clothes';
@@ -8,7 +9,13 @@ export class MobEntity extends Entity {
   override action: EntityAction = 'attack';
 
   constructor(mobClass: GameClass, name: string, public image: string) {
-    super(name, mobClass, new Clothes(), new Fists());
+    super(
+      name,
+      mobClass,
+      new Clothes(),
+      new Fists(),
+      new Currency(mobClass.getLevel().getXp() / 2)
+    );
   }
 
   static getDefault(): MobEntity {

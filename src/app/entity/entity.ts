@@ -1,3 +1,4 @@
+import { Currency } from '../currency/currency';
 import { GameClass } from '../game-class/game-class';
 import { GameItem } from '../game-item/game-item';
 
@@ -12,11 +13,16 @@ export abstract class Entity {
     protected name: string,
     private gameClass: GameClass,
     public armor: GameItem,
-    public weapon: GameItem
+    public weapon: GameItem,
+    private gold: Currency
   ) {
     this.remainingLife = this.gameClass.getMaxHealthPoints();
 
     this.stamina = 100;
+  }
+
+  getGold(): Currency {
+    return this.gold;
   }
 
   getName(): string {
@@ -101,7 +107,7 @@ export abstract class Entity {
   }
 
   getStaminaPercentage(): number {
-    return this.stamina / 100;
+    return this.getStamina() / 100;
   }
 
   getStrikeChance(): number {

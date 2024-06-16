@@ -6,6 +6,6 @@ export class Fists extends WeaponItem {
     return 1;
   }
   public constructor() {
-    super('fists');
+    super('fists', 0);
   }
 }

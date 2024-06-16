@@ -4,6 +4,7 @@ import { GameClassFactoryService } from '../game-class-factory/game-class-factor
 import { GameClassesNames } from '../game-class/game-class';
 import { GameItemFactoryService } from '../game-item-factory/game-item-factory.service';
 import { GameItem } from '../game-item/game-item';
+import { Currency } from '../currency/currency';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,8 @@ export class PlayerStorageService {
       id,
       this.gameItemFactoryService.factory(player.armor),
       this.gameItemFactoryService.factory(player.weapon),
-      this.itemsNameToItems(player.gameItems)
+      this.itemsNameToItems(player.gameItems),
+      new Currency(player.gold)
     );
   }
 
@@ -59,11 +61,12 @@ export class PlayerStorageService {
 
     db[newID] = {
       gameClass: gameClass,
-      gameItems: ['sword'],
+      gameItems: [],
       xp: 0,
       name: name,
       armor: 'clothes',
       weapon: 'fists',
+      gold: 0,
     };
 
     this.writeDb(db);
@@ -74,7 +77,8 @@ export class PlayerStorageService {
       newID,
       this.gameItemFactoryService.factory(db[newID].armor),
       this.gameItemFactoryService.factory(db[newID].weapon),
-      []
+      [],
+      new Currency()
     );
   }
   private getDbLastId(db: Db): number {
@@ -118,6 +122,7 @@ export class PlayerStorageService {
       gameItems: player.gameItems.map((item) => item.getName()),
       name: player.getName(),
       xp: player.getGameClass().getLevel().getXp(),
+      gold: player.getGold().getAmount(),
     };
 
     this.writeDb(db);
@@ -132,7 +137,8 @@ export class PlayerStorageService {
       id,
       this.gameItemFactoryService.factory('fists'),
       this.gameItemFactoryService.factory('fists'),
-      []
+      [],
+      new Currency(0)
     );
   }
 }
@@ -144,5 +150,6 @@ interface Db {
     gameItems: string[];
     armor: string;
     weapon: string;
+    gold: number;
   };
 }

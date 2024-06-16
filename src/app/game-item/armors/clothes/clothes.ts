@@ -6,6 +6,6 @@ export class Clothes extends ArmorItem {
   }
 
   constructor() {
-    super('clothes');
+    super('clothes', 0);
   }
 }
