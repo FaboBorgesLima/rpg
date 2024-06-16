@@ -113,17 +113,28 @@ export abstract class Entity {
   }
 
   getRunAwayChance(from: Entity): number {
+    const speedSum =
+      from.getGameClass().getSpeed() + this.getGameClass().getSpeed();
+    const sumStamina = from.getStamina() + this.getStamina();
+
+    const sumRemainingLife = from.getRemainingLife() + this.getRemainingLife();
+
+    const proportionalSpeed = this.getGameClass().getSpeed() / speedSum;
+
+    const proportinalStamina = this.getStamina() / sumStamina;
+
+    const proportionalRemainingLife = Math.min(
+      (this.getRemainingLife() / sumRemainingLife) * 2,
+      1
+    );
+
+    console.debug(
+      this.getName(),
+      (proportinalStamina + proportionalSpeed + proportionalRemainingLife) / 3
+    );
+
     return (
-      (Math.min(
-        Math.max(
-          this.getGameClass().getSpeed() - from.getGameClass().getSpeed(),
-          0
-        ),
-        40
-      ) /
-        40 +
-        this.getStaminaPercentage()) /
-      2
+      (proportinalStamina + proportionalSpeed + proportionalRemainingLife) / 3
     );
   }
 

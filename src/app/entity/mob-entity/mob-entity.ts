@@ -38,7 +38,11 @@ export class MobEntity extends Entity {
       return 'defense';
     }
 
-    if (this.getRemainingLifePercentage() < 0.5 * Math.random()) {
+    const sumLife = oponent.getRemainingLife() + this.getRemainingLife();
+
+    const proportinalLife = this.getRemainingLife() / sumLife;
+
+    if (proportinalLife < 0.25 * Math.random()) {
       return 'run';
     }
 
