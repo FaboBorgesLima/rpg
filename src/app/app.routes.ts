@@ -6,6 +6,7 @@ import { PreparationScreenComponent } from './preparation-screen/preparation-scr
 import { InventoryScreenComponent } from './inventory-screen/inventory-screen.component';
 import { FightScreenComponent } from './fight-screen/fight-screen.component';
 import { ShopScreenComponent } from './shop-screen/shop-screen.component';
+import { StatusScreenComponent } from './status-screen/status-screen.component';
 
 export const routes: Routes = [
   { path: 'new-game', component: NewGameComponent, pathMatch: 'full' },
@@ -15,6 +16,7 @@ export const routes: Routes = [
     component: PreparationScreenComponent,
     pathMatch: 'full',
   },
+  { path: 'status', component: StatusScreenComponent, pathMatch: 'full' },
   { path: 'inventory', component: InventoryScreenComponent, pathMatch: 'full' },
   { path: 'fight-screen', component: FightScreenComponent, pathMatch: 'full' },
   { path: 'shop', component: ShopScreenComponent, pathMatch: 'full' },

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IconsComponent } from '../icons/icons.component';
+import { IconsComponent, IconsT } from '../icons/icons.component';
 
 @Component({
   selector: 'app-status',
@@ -11,5 +11,5 @@ import { IconsComponent } from '../icons/icons.component';
 export class StatusComponent {
   @Input({ required: true }) amount!: number;
   @Input({ required: true }) name!: string;
-  @Input({ required: true }) icon!: 'heart';
+  @Input({ required: true }) icon!: IconsT;
 }

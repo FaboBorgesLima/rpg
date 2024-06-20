@@ -1,8 +1,8 @@
 <div
-  class="w-full bg-black/20 grid grid-cols-3 p-4 [&>span]:text-center [&>span]:my-auto [&>span]:text-2xl"
+  class="w-full bg-black/20 grid grid-cols-3 p-4 text-white [&>span]:text-center [&>span]:my-auto [&>span]:text-2xl"
 >
   <span>{{ name }}</span>
   <span>{{ amount }}</span>
 
-  <app-icons name="heart" alt="life" class="mx-auto"></app-icons>
+  <app-icons [name]="icon" [alt]="icon" class="mx-auto"></app-icons>
 </div>

@@ -8,7 +8,13 @@
     >
       shop
     </button>
-    <button class="btn bg-yellow-500 hover:opacity-95">status</button>
+    <button
+      class="btn bg-yellow-500 hover:opacity-95"
+      routerLink="/status"
+      [queryParams]="{ id: id }"
+    >
+      status
+    </button>
     <button class="btn bg-blue-500 hover:opacity-95" (click)="goToInventory()">
       inventory
     </button>

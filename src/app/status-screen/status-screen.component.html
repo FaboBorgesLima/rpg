@@ -1,0 +1,67 @@
+<section class="container mx-auto flex flex-col gap-4">
+  <h1 class="text-gray-50 text-center text-4xl">
+    {{ player.getName() }} {{ player.getName() }}
+  </h1>
+  <app-status
+    [amount]="player.getGameClass().getMaxHealthPoints()"
+    icon="heart"
+    name="max hp"
+  ></app-status>
+  <app-status
+    [amount]="player.getGameClass().getLevel().getXp()"
+    icon="heart"
+    name="xp"
+  ></app-status>
+  <app-status
+    [amount]="player.getGold().getAmount()"
+    icon="heart"
+    name="gold"
+  ></app-status>
+  <app-status
+    [amount]="player.getGameClass().getAttack()"
+    icon="sword"
+    [name]="
+      player.getGameClass().getName() +
+      ' lv' +
+      player.getGameClass().getLevel().getLevelAmount() +
+      ' damage'
+    "
+  ></app-status>
+  <app-status
+    [amount]="player.weapon.getDamage()"
+    icon="sword"
+    [name]="player.weapon.getName() + ' damage'"
+  ></app-status>
+  <app-status
+    [amount]="player.getTotalDamage()"
+    icon="sword"
+    name="total attack"
+  ></app-status>
+  <app-status
+    [amount]="player.getTotalDefense()"
+    icon="helmet"
+    [name]="'total defense'"
+  ></app-status>
+  <app-status
+    [amount]="player.getGameClass().getDefense()"
+    icon="helmet"
+    [name]="
+      player.getGameClass().getName() +
+      ' lv' +
+      player.getGameClass().getLevel().getLevelAmount() +
+      ' defense'
+    "
+  ></app-status>
+  <app-status
+    [amount]="player.armor.getProtection()"
+    icon="helmet"
+    [name]="player.armor.getName() + ' defense'"
+  ></app-status>
+  <button
+    routerLink="/preparation-screen"
+    [queryParams]="{ id: id }"
+    class="btn bg-green-500"
+  >
+    return
+  </button>
+</section>
