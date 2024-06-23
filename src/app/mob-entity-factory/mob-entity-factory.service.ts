@@ -23,7 +23,7 @@ export class MobEntityFactoryService {
             monsterProps.xp,
             'mob',
             monsterProps.hit_points,
-            monsterProps.strength,
+            monsterProps.strength * 0.2, //////////////////////////////
             monsterProps.constitution * 2,
             monsterProps.dexterity
           );

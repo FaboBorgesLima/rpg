@@ -76,7 +76,7 @@
           </p>
         </div>
       </section>
-      <button class="btn bg-green-500">start</button>
+      <button class="btn bg-green-500" [ngClass]="{ 'opacity-50': form.invalid }">start</button>
     </section>
   </form>
 </main>

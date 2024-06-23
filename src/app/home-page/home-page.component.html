@@ -12,7 +12,7 @@
     <a routerLink="/new-game" class="btn bg-red-500 hover:bg-red-500/95"
       >new game</a
     >
-    <a routerLink="/load-game" class="btn bg-yellow-500 hover:bg-yellow-500/95"
+    <a *ngIf="playerStorageService.all()[0]" routerLink="/load-game" class="btn bg-yellow-500 hover:bg-yellow-500/95"
       >load</a
     >
     <a routerLink="" class="btn bg-green-500 hover:bg-green-500/95">about</a>

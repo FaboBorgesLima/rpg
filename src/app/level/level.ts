@@ -21,7 +21,7 @@ export class Level {
     do {
       level++;
 
-      remainingXp -= 300 + level * 1000;
+      remainingXp -= 300 + ((level - 1) * 300);
     } while (remainingXp >= 0);
 
     return level;
