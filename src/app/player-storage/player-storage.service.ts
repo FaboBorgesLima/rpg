@@ -32,12 +32,8 @@ export class PlayerStorageService {
       this.gameItemFactoryService.factory(player.weapon),
       this.itemsNameToItems(player.gameItems),
       new Currency(player.gold),
-      player.externalId ? player.externalId : this.generateExternalId()
+      player.externalId ? player.externalId : Player.generateExternalId()
     );
-  }
-
-  private generateExternalId(): string {
-    return Math.trunc(Math.random() * 1_000_000).toString() + 'a';
   }
 
   private itemsNameToItems(itemsName: string[]): GameItem[] {
@@ -74,7 +70,7 @@ export class PlayerStorageService {
       armor: 'clothes',
       weapon: 'fists',
       gold: 0,
-      externalId: this.generateExternalId(),
+      externalId: Player.generateExternalId(),
     };
 
     this.writeDb(db);
@@ -151,14 +147,14 @@ export class PlayerStorageService {
       this.gameItemFactoryService.factory('fists'),
       [],
       new Currency(0),
-      this.generateExternalId()
+      Player.generateExternalId()
     );
   }
 
-  async syncWithPantry(): Promise<void> {
+  async syncWithPantry(): Promise<boolean> {
     const db = this.getDb();
 
-    await this.peoplePlayingService.syncPlayerSaves(db);
+    return this.peoplePlayingService.syncPlayerSaves(db);
   }
 }
 export interface PlayerDb {

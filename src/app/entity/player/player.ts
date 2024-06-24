@@ -19,7 +19,10 @@ export class Player extends Entity {
     super(name, playerClass, armor, weapon, gold);
   }
   getExternalId(): string {
-    return this.externalId;
+    return this.externalId ? this.externalId : Player.generateExternalId();
+  }
+  static generateExternalId(): string {
+    return Math.trunc(Math.random() * 1_000_000).toString() + 'a';
   }
   getId(): number {
     return this.id;
