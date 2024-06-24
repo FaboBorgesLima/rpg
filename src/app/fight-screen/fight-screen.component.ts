@@ -97,10 +97,6 @@ export class FightScreenComponent implements OnInit {
       this.player.getGold().add(monsterGold);
 
       this.player.setMaxLife();
-      console.log("a");
-      console.log(this.player.getRemainingLife());
-
-      // this.player.getGameClass().getLevel().setLevelAmount();
 
       this.playerStorage.update(this.player);
 

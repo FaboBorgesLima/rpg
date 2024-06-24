@@ -23,19 +23,10 @@ export class PreparationScreenComponent implements OnInit {
   ngOnInit(): void {
     const urlId = this.activatedRoute.snapshot.queryParamMap.get('id');
     this.id = urlId ? urlId : '';
-    console.log(urlId);
-
-    if (!this.id) {
-      this.router.navigate(['new-game']);
-      return;
-    }
 
     const player = this.playerStorage.getById(parseInt(this.id));
 
-    if (!player) {
-      this.router.navigate(['']);
-      return;
-    }
+    if (!player) return;
 
     this.player = player;
   }

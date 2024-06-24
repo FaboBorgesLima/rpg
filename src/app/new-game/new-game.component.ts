@@ -27,7 +27,7 @@ export class NewGameComponent {
   });
 
   Player = Player;
-  createPlayer() {
+  createPlayer(heroName: string) {
     if (this.form.invalid) {
       const nameControl = this.form.get('name');
       if (nameControl && nameControl.invalid) {
@@ -41,6 +41,8 @@ export class NewGameComponent {
       this.getNameFromForm(this.form)
     );
 
+    alert(`Here begins ${heroName} adventure!`);
+    
     this.router.navigate(['preparation-screen'], {
       queryParams: { id: player.getId() },
     });
@@ -58,5 +60,9 @@ export class NewGameComponent {
     gameClass = gameClass ? gameClass : 'warrior';
 
     return gameClass;
+  }
+
+  public start(heroName: string) {
+
   }
 }

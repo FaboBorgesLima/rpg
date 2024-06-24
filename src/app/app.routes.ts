@@ -7,6 +7,7 @@ import { InventoryScreenComponent } from './inventory-screen/inventory-screen.co
 import { FightScreenComponent } from './fight-screen/fight-screen.component';
 import { ShopScreenComponent } from './shop-screen/shop-screen.component';
 import { StatusScreenComponent } from './status-screen/status-screen.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   { path: 'new-game', component: NewGameComponent, pathMatch: 'full' },
@@ -15,10 +16,11 @@ export const routes: Routes = [
     path: 'preparation-screen',
     component: PreparationScreenComponent,
     pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
-  { path: 'status', component: StatusScreenComponent, pathMatch: 'full' },
-  { path: 'inventory', component: InventoryScreenComponent, pathMatch: 'full' },
-  { path: 'fight-screen', component: FightScreenComponent, pathMatch: 'full' },
-  { path: 'shop', component: ShopScreenComponent, pathMatch: 'full' },
+  { path: 'status', component: StatusScreenComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'inventory', component: InventoryScreenComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'fight-screen', component: FightScreenComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'shop', component: ShopScreenComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: '', component: HomePageComponent, pathMatch: 'full' },
 ];

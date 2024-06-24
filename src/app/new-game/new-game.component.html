@@ -1,7 +1,7 @@
 <main>
   <form
     class="flex flex-col lg:flex-row justify-between items-center p-4 min-h-[85vh] grow gap:8 lg:gap-16"
-    (ngSubmit)="createPlayer()"
+    (ngSubmit)="createPlayer(heroName.value)"
     [formGroup]="form"
   >
     <section
@@ -10,6 +10,7 @@
       <h1 class="text-center text-gray-50 text-4xl">New game</h1>
       <h2 class="text-gray-50 text-xl">Choose your hero's name</h2>
       <input
+        #heroName
         type="text"
         class="rounded-md w-full h-12 items-center justify-center bg-black/40 p-2 text-white text-center"
         formControlName="name"

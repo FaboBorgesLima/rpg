@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
 import { Player } from '../entity/player/player';
 import { NgFor } from '@angular/common';
@@ -11,7 +11,7 @@ import { GameItemFilterService } from '../game-item-filter/game-item-filter.serv
 @Component({
   selector: 'app-shop-screen',
   standalone: true,
-  imports: [NgFor, ShopItemCardComponent],
+  imports: [NgFor, ShopItemCardComponent, RouterLink],
   templateUrl: './shop-screen.component.html',
   styleUrl: './shop-screen.component.css',
 })
