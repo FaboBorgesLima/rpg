@@ -54,6 +54,7 @@ export class PeoplePlayingService {
   }
 
   async syncPlayerSaves(playerDb: PlayerDb): Promise<boolean> {
+    console.log('syncing');
     const db = await this.getPeoplePlaying();
 
     console.log('sync in', db);
