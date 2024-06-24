@@ -154,6 +154,12 @@ export class PlayerStorageService {
       this.generateExternalId()
     );
   }
+
+  async syncWithPantry(): Promise<void> {
+    const db = this.getDb();
+
+    await this.peoplePlayingService.syncPlayerSaves(db);
+  }
 }
 export interface PlayerDb {
   [k: number]: {
