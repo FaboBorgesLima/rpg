@@ -32,11 +32,10 @@
       Defense
     </button>
     <button
-      class="btn bg-blue-500 hover:opacity-95"
+      class="btn bg-blue-500 hover:opacity-95 col-span-2"
       (click)="player.action = 'run'; onRound()"
     >
       Run ({{ (player.getRunAwayChance(mob) * 100).toFixed(0) }}%)
     </button>
-    <button class="btn bg-green-500 hover:opacity-95">Items</button>
   </footer>
 </section>
