@@ -1,0 +1,30 @@
+<div class="container mx-auto flex-col flex gap-4 m-4">
+  <section class="flex-col flex gap-4 bg-black/20 p-4">
+    <h1 class="text-gray-50 text-3xl text-center">created by</h1>
+    <span class="text-gray-50 text-xl text-center"
+      ><a class="underline" href="https://github.com/FalarzEdu">FalarzEdu</a>
+      and
+      <a class="underline" href="https://github.com/FaboBorgesLima"
+        >FaboBorgesLima</a
+      ></span
+    >
+  </section>
+  <section class="flex-col flex gap-4">
+    <h2 class="text-gray-50 text-2xl text-center">
+      saves created by people : {{ savesN }}
+    </h2>
+
+    <div
+      *ngFor="let save of peopleSaves"
+      class="grid grid-cols-2 bg-black/20 p-4"
+    >
+      <span class="text-gray-50 text-xl">
+        {{ save.gameClass }}
+      </span>
+      <span class="text-gray-50 text-xl"> xp: {{ save.xp }} </span>
+    </div>
+    <button class="btn bg-red-500 text-3xl" (click)="deleteAllSaves()">
+      delete all
+    </button>
+  </section>
+</div>

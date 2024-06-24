@@ -13,9 +13,13 @@ export class Player extends Entity {
     armor: GameItem,
     weapon: GameItem,
     public gameItems: GameItem[],
-    gold: Currency
+    gold: Currency,
+    private externalId: string
   ) {
     super(name, playerClass, armor, weapon, gold);
+  }
+  getExternalId(): string {
+    return this.externalId;
   }
   getId(): number {
     return this.id;

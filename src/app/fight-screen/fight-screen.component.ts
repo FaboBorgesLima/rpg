@@ -118,10 +118,8 @@ export class FightScreenComponent implements OnInit {
         .getGameClass()
         .getLevel()
         .setXp(playerXp - monsterXp);
-        
+
       this.player.setMaxLife();
-      console.log("a");
-      console.log(this.player.getRemainingLife());
 
       this.playerStorage.update(this.player);
 

@@ -56,8 +56,6 @@ export abstract class Entity {
   }
 
   reciveAction(from: Entity) {
-    console.log(this.getName(), this.getGameClass().getSpeed(), this);
-
     switch (from.action) {
       case 'defense':
         break;
@@ -136,11 +134,6 @@ export abstract class Entity {
     const proportionalRemainingLife = Math.min(
       (this.getRemainingLife() / sumRemainingLife) * 2,
       1
-    );
-
-    console.debug(
-      this.getName(),
-      (proportinalStamina + proportionalSpeed + proportionalRemainingLife) / 3
     );
 
     return (

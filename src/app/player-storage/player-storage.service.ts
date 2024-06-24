@@ -5,6 +5,7 @@ import { GameClassesNames } from '../game-class/game-class';
 import { GameItemFactoryService } from '../game-item-factory/game-item-factory.service';
 import { GameItem } from '../game-item/game-item';
 import { Currency } from '../currency/currency';
+import { PeoplePlayingService } from '../people-playing/people-playing.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,8 @@ import { Currency } from '../currency/currency';
 export class PlayerStorageService {
   constructor(
     protected gameClassFactoryService: GameClassFactoryService,
-    protected gameItemFactoryService: GameItemFactoryService
+    protected gameItemFactoryService: GameItemFactoryService,
+    protected peoplePlayingService: PeoplePlayingService
   ) {}
 
   getById(id: number): Player | void {
@@ -29,8 +31,13 @@ export class PlayerStorageService {
       this.gameItemFactoryService.factory(player.armor),
       this.gameItemFactoryService.factory(player.weapon),
       this.itemsNameToItems(player.gameItems),
-      new Currency(player.gold)
+      new Currency(player.gold),
+      player.externalId ? player.externalId : this.generateExternalId()
     );
+  }
+
+  private generateExternalId(): string {
+    return Math.trunc(Math.random() * 1_000_000).toString() + 'a';
   }
 
   private itemsNameToItems(itemsName: string[]): GameItem[] {
@@ -43,13 +50,13 @@ export class PlayerStorageService {
     return items;
   }
 
-  private getDb(): Db {
+  private getDb(): PlayerDb {
     const db = localStorage.getItem('player_rpg');
     if (!db) return {};
 
     return JSON.parse(db);
   }
-  private writeDb(db: Db): void {
+  private writeDb(db: PlayerDb): void {
     localStorage.setItem('player_rpg', JSON.stringify(db));
   }
   create(gameClass: GameClassesNames, name: string): Player {
@@ -67,9 +74,12 @@ export class PlayerStorageService {
       armor: 'clothes',
       weapon: 'fists',
       gold: 0,
+      externalId: this.generateExternalId(),
     };
 
     this.writeDb(db);
+
+    this.peoplePlayingService.syncPlayerSaves(db).then().catch();
 
     return new Player(
       name,
@@ -78,10 +88,11 @@ export class PlayerStorageService {
       this.gameItemFactoryService.factory(db[newID].armor),
       this.gameItemFactoryService.factory(db[newID].weapon),
       [],
-      new Currency()
+      new Currency(),
+      db[newID].externalId
     );
   }
-  private getDbLastId(db: Db): number {
+  private getDbLastId(db: PlayerDb): number {
     const players = Object.entries(db);
 
     if (players.length == 0) return 1;
@@ -123,6 +134,7 @@ export class PlayerStorageService {
       name: player.getName(),
       xp: player.getGameClass().getLevel().getXp(),
       gold: player.getGold().getAmount(),
+      externalId: player.getExternalId(),
     };
 
     this.writeDb(db);
@@ -138,11 +150,12 @@ export class PlayerStorageService {
       this.gameItemFactoryService.factory('fists'),
       this.gameItemFactoryService.factory('fists'),
       [],
-      new Currency(0)
+      new Currency(0),
+      this.generateExternalId()
     );
   }
 }
-interface Db {
+export interface PlayerDb {
   [k: number]: {
     gameClass: GameClassesNames;
     xp: number;
@@ -151,5 +164,6 @@ interface Db {
     armor: string;
     weapon: string;
     gold: number;
+    externalId: string;
   };
 }
