@@ -1,26 +1,19 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
+
 import { PlayerStorageService } from './player-storage/player-storage.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthGuard implements CanActivate {
-  constructor(private playerStorage: PlayerStorageService, private router: Router) {}
+import { CanActivateFn } from '@angular/router';
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    const id = route.queryParamMap.get('id');
+export const authGuard: CanActivateFn = (route, state) => {
+  const playerStorage = inject(PlayerStorageService);
 
-    if (id && this.playerStorage.getById(parseInt(id))) {
-      return true;
-    }
+  const id = route.queryParamMap.get('id');
 
-    this.router.navigate(['']);
-    return false;
-  }
-}
+  if (!id) return false;
 
+  const player = playerStorage.getById(parseInt(id));
+
+  if (!player) return false;
+
+  return true;
+};

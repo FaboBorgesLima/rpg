@@ -16,7 +16,7 @@ export class GameItemFactoryService {
     switch (name) {
       case 'clothes':
         return new Clothes();
-      case 'leater armor':
+      case 'leather armor':
         return new LeatherArmor();
       case 'iron armor':
         return new IronArmor();

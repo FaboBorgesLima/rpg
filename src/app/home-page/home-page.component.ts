@@ -10,6 +10,7 @@ import { PeoplePlayingService } from '../people-playing/people-playing.service';
   imports: [RouterLink, NgIf],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
+  host: { class: 'grow flex' },
 })
 export class HomePageComponent implements OnInit {
   constructor(

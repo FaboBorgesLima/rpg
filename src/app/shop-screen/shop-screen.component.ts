@@ -14,6 +14,7 @@ import { GameItemFilterService } from '../game-item-filter/game-item-filter.serv
   imports: [NgFor, ShopItemCardComponent, RouterLink],
   templateUrl: './shop-screen.component.html',
   styleUrl: './shop-screen.component.css',
+  host: { class: 'flex grow flex-col' },
 })
 export class ShopScreenComponent implements OnInit {
   id = '';

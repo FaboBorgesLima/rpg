@@ -11,6 +11,7 @@ import { NgFor } from '@angular/common';
   imports: [GameItemCardComponent, NgFor, RouterLink],
   templateUrl: './inventory-screen.component.html',
   styleUrl: './inventory-screen.component.css',
+  host: { class: 'flex grow' },
 })
 export class InventoryScreenComponent {
   constructor(

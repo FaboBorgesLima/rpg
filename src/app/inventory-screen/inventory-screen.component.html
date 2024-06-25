@@ -1,18 +1,26 @@
-<section class="container mx-auto flex flex-col gap-4 h-[calc(100vh-5rem)]">
-  <h1 class="text-4xl text-center text-gray-50">inventory</h1>
-  <app-game-item-card
-    [gameItem]="player.armor"
-    [(player)]="player"
-  ></app-game-item-card>
-  <app-game-item-card
-    [gameItem]="player.weapon"
-    [(player)]="player"
-  ></app-game-item-card>
-  <app-game-item-card
-    *ngFor="let gameItem of player.gameItems"
-    [(player)]="player"
-    [gameItem]="gameItem"
-  ></app-game-item-card>
-  <button routerLink="/preparation-screen" [queryParams]="{id: id}" class="btn bg-green-500 w-full md:w-16 justify-self-end">Return</button>
-</section>
+<main class="container mx-auto flex flex-col justify-between m-4 gap-4 grow">
+  <section class="flex flex-col gap-4">
+    <h1 class="text-4xl text-center text-gray-50">inventory</h1>
 
+    <app-game-item-card
+      [gameItem]="player.armor"
+      [(player)]="player"
+    ></app-game-item-card>
+    <app-game-item-card
+      [gameItem]="player.weapon"
+      [(player)]="player"
+    ></app-game-item-card>
+    <app-game-item-card
+      *ngFor="let gameItem of player.gameItems"
+      [(player)]="player"
+      [gameItem]="gameItem"
+    ></app-game-item-card>
+  </section>
+  <button
+    routerLink="/preparation-screen"
+    [queryParams]="{ id: id }"
+    class="btn bg-green-500 w-full justify-self-end"
+  >
+    Return
+  </button>
+</main>
