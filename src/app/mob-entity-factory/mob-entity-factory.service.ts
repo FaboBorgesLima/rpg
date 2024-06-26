@@ -11,7 +11,7 @@ import { dndApiDomain } from '../app.config';
 export class MobEntityFactoryService {
   constructor(private dndApi: DndApiService) {}
 
-  factory(challengeRating?: number): Observable<MobEntity> {
+  createFactory(challengeRating?: number): Observable<MobEntity> {
     return new Observable((subscriber) => {
       this.dndApi.getRandomMonster(challengeRating).subscribe({
         error: () => {
@@ -23,7 +23,7 @@ export class MobEntityFactoryService {
             monsterProps.xp,
             'mob',
             monsterProps.hit_points,
-            monsterProps.strength * 0.2, //////////////////////////////
+            monsterProps.strength * 0.2,
             monsterProps.constitution * 2,
             monsterProps.dexterity
           );
@@ -34,6 +34,43 @@ export class MobEntityFactoryService {
               monsterProps.image ? `${dndApiDomain}${monsterProps.image}` : ''
             )
           );
+          subscriber.complete();
+        },
+      });
+    });
+  }
+
+  loadFactory(
+    name: string,
+    stamina: number,
+    remainingLife: number
+  ): Observable<MobEntity> {
+    return new Observable((subscriber) => {
+      this.dndApi.getMonsterByIndex(name).subscribe({
+        error: () => {
+          subscriber.error();
+          subscriber.complete();
+        },
+        next: (monsterProps) => {
+          const mobClass = new MobClass(
+            monsterProps.xp,
+            'mob',
+            monsterProps.hit_points,
+            monsterProps.strength * 0.2,
+            monsterProps.constitution * 2,
+            monsterProps.dexterity
+          );
+          const mob = new MobEntity(
+            mobClass,
+            monsterProps.name,
+            monsterProps.image ? `${dndApiDomain}${monsterProps.image}` : ''
+          );
+
+          mob.setRemainingLife(remainingLife);
+
+          mob.setStamina(stamina);
+
+          subscriber.next(mob);
           subscriber.complete();
         },
       });

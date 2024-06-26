@@ -6,6 +6,7 @@ import { GameItemFactoryService } from '../game-item-factory/game-item-factory.s
 import { GameItem } from '../game-item/game-item';
 import { Currency } from '../currency/currency';
 import { PeoplePlayingService } from '../people-playing/people-playing.service';
+import { MobEntityFactoryService } from '../mob-entity-factory/mob-entity-factory.service';
 
 @Injectable({
   providedIn: 'root',
@@ -149,6 +150,22 @@ export class PlayerStorageService {
       new Currency(0),
       Player.generateExternalId()
     );
+  }
+
+  loadPlayer(
+    id: number,
+    remainingLife: number,
+    stamina: number
+  ): void | Player {
+    const player = this.getById(id);
+
+    if (!player) return;
+
+    player.setRemainingLife(remainingLife);
+
+    player.setStamina(stamina);
+
+    return player;
   }
 
   async syncWithPantry(): Promise<boolean> {

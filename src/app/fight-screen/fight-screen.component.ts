@@ -42,7 +42,7 @@ export class FightScreenComponent implements OnInit {
 
     this.floor = this.player.getGameClass().getLevel().getLevelAmount();
 
-    this.mobEntityFactory.factory(this.floor).subscribe({
+    this.mobEntityFactory.createFactory(this.floor).subscribe({
       next: (newMob) => {
         this.mob = newMob;
       },
@@ -96,7 +96,7 @@ export class FightScreenComponent implements OnInit {
 
       this.player.getGold().add(monsterGold);
 
-      this.player.setMaxLife();
+      this.player.resetRemainingLife();
 
       this.playerStorage.update(this.player);
 
@@ -119,7 +119,7 @@ export class FightScreenComponent implements OnInit {
         .getLevel()
         .setXp(playerXp - monsterXp);
 
-      this.player.setMaxLife();
+      this.player.resetRemainingLife();
 
       this.playerStorage.update(this.player);
 

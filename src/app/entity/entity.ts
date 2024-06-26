@@ -41,12 +41,19 @@ export abstract class Entity {
     return this.remainingLife;
   }
 
-  setMaxLife(): void {
+  resetRemainingLife(): void {
     this.remainingLife = this.getGameClass().getMaxHealthPoints();
   }
 
   setStamina(stamina: number): void {
     this.stamina = Math.min(100, Math.max(stamina, 0));
+  }
+
+  setRemainingLife(remainingLife: number): void {
+    this.stamina = Math.min(
+      this.getGameClass().getMaxHealthPoints(),
+      Math.max(remainingLife, 0)
+    );
   }
 
   getRemainingLifePercentage(): number {
@@ -96,8 +103,16 @@ export abstract class Entity {
   getTotalDamage(): number {
     return this.getGameClass().getAttack() + this.weapon.getDamage();
   }
+
+  getTotalDefense(): number {
+    return this.gameClass.getDefense() + this.armor.getProtection();
+  }
+
   getStamina(): number {
     return this.stamina;
+  }
+  getStaminaPercentage(): number {
+    return this.getStamina() / 100;
   }
 
   /**
@@ -106,18 +121,6 @@ export abstract class Entity {
    */
   protected willStrike(): boolean {
     return this.getStrikeChance() > Math.random();
-  }
-
-  getStaminaPercentage(): number {
-    return this.getStamina() / 100;
-  }
-
-  getStrikeChance(): number {
-    return this.getStaminaPercentage();
-  }
-
-  getTotalDefense(): number {
-    return this.gameClass.getDefense() + this.armor.getProtection();
   }
 
   getRunAwayChance(from: Entity): number {
@@ -139,6 +142,10 @@ export abstract class Entity {
     return (
       (proportinalStamina + proportionalSpeed + proportionalRemainingLife) / 3
     );
+  }
+
+  getStrikeChance(): number {
+    return this.getStaminaPercentage();
   }
 
   /**
