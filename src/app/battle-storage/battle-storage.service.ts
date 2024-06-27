@@ -24,7 +24,7 @@ export class BattleStorageService {
     return JSON.parse(item);
   }
 
-  private updateDb(db: BattleDb): void {
+  private writeDb(db: BattleDb): void {
     localStorage.setItem(this.itemInLocalStorage, JSON.stringify(db));
   }
 
@@ -43,14 +43,14 @@ export class BattleStorageService {
       },
     };
 
-    this.updateDb(db);
+    this.writeDb(db);
   }
   endBattle(playerId: number) {
     const db = this.getDb();
 
     db[playerId] = undefined;
 
-    this.updateDb(db);
+    this.writeDb(db);
   }
 
   private getBattleByPlayerId(id: number): void | BattleSchema {
