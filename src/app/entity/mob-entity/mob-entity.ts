@@ -8,7 +8,12 @@ import { Entity, EntityAction } from '../entity';
 export class MobEntity extends Entity {
   override action: EntityAction = 'attack';
 
-  constructor(mobClass: GameClass, name: string, public image: string) {
+  constructor(
+    mobClass: GameClass,
+    name: string,
+    public image: string,
+    public index: string
+  ) {
     super(
       name,
       mobClass,
@@ -19,7 +24,7 @@ export class MobEntity extends Entity {
   }
 
   static getDefault(): MobEntity {
-    return new MobEntity(MobClass.getDefault(), '404', '');
+    return new MobEntity(MobClass.getDefault(), '404', '', 'not found');
   }
 
   getRandomAction(): EntityAction {

@@ -39,7 +39,7 @@ export class BattleStorageService {
       mob: {
         remainingLife: mobEntity.getRemainingLife(),
         stamina: mobEntity.getStamina(),
-        index: mobEntity.getName(),
+        index: mobEntity.index,
       },
     };
 
@@ -49,6 +49,8 @@ export class BattleStorageService {
     const db = this.getDb();
 
     db[playerId] = undefined;
+
+    this.updateDb(db);
   }
 
   private getBattleByPlayerId(id: number): void | BattleSchema {

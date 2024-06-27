@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MobEntityFactoryService } from '../mob-entity-factory/mob-entity-factory.service';
 import { MobEntity } from '../entity/mob-entity/mob-entity';
+import { BattleStorageService } from '../battle-storage/battle-storage.service';
 
 @Component({
   selector: 'app-fight-screen',
@@ -19,7 +20,8 @@ export class FightScreenComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public playerStorage: PlayerStorageService,
     private router: Router,
-    private mobEntityFactory: MobEntityFactoryService
+    private mobEntityFactory: MobEntityFactoryService,
+    private battleStorageService: BattleStorageService
   ) {}
 
   id: string = '';
@@ -31,27 +33,41 @@ export class FightScreenComponent implements OnInit {
     const urlId = this.activatedRoute.snapshot.queryParamMap.get('id');
     this.id = urlId ? urlId : '';
 
-    const player = this.playerStorage.getById(parseInt(this.id));
+    const battleLoader = this.battleStorageService.loadBattle(
+      parseInt(this.id)
+    );
+    if (!battleLoader) {
+      const player = this.playerStorage.getById(parseInt(this.id));
 
-    if (!player) {
-      this.router.navigate(['']);
+      if (!player) {
+        this.router.navigate(['']);
+        return;
+      }
+
+      this.player = player;
+
+      this.floor = this.player.getGameClass().getLevel().getLevelAmount();
+
+      this.mobEntityFactory.createFactory(this.floor).subscribe({
+        next: (newMob) => {
+          this.mob = newMob;
+          this.battleStorageService.saveBattle(this.player, this.mob);
+        },
+      });
+
+      if (!this.id) {
+        this.router.navigate(['load-game']);
+      }
+
       return;
     }
 
-    this.player = player;
-
-    this.floor = this.player.getGameClass().getLevel().getLevelAmount();
-
-    this.mobEntityFactory.createFactory(this.floor).subscribe({
-      next: (newMob) => {
-        this.mob = newMob;
+    battleLoader.subscribe({
+      next: ([player, mob]) => {
+        this.player = player;
+        this.mob = mob;
       },
     });
-
-    if (!this.id) {
-      this.router.navigate(['load-game']);
-      return;
-    }
   }
 
   onRound() {
@@ -62,10 +78,13 @@ export class FightScreenComponent implements OnInit {
 
     this.player.reciveAction(this.mob);
 
+    this.battleStorageService.saveBattle(this.player, this.mob);
+
     if (
       this.player.action == 'run' &&
       this.player.getRunAwayChance(this.mob) > Math.random()
     ) {
+      this.battleStorageService.endBattle(parseInt(this.id));
       alert(`you run away from ${this.mob.getName()}`);
       this.router.navigate(['preparation-screen'], {
         queryParams: { id: this.id },
@@ -77,6 +96,7 @@ export class FightScreenComponent implements OnInit {
       this.mob.action == 'run' &&
       this.mob.getRunAwayChance(this.player) > Math.random()
     ) {
+      this.battleStorageService.endBattle(parseInt(this.id));
       alert(`${this.mob.getName()} run away from you`);
       this.router.navigate(['preparation-screen'], {
         queryParams: { id: this.id },
@@ -85,6 +105,7 @@ export class FightScreenComponent implements OnInit {
     }
 
     if (!this.mob.isAlive()) {
+      this.battleStorageService.endBattle(parseInt(this.id));
       const playerXp = this.player.getGameClass().getLevel().getXp();
       const monsterXp = this.mob.getGameClass().getLevel().getXp();
       const monsterGold = this.mob.getGold().getAmount();
@@ -111,6 +132,7 @@ export class FightScreenComponent implements OnInit {
       return;
     }
     if (!this.player.isAlive()) {
+      this.battleStorageService.endBattle(parseInt(this.id));
       const playerXp = this.player.getGameClass().getLevel().getXp();
       const monsterXp = this.mob.getGameClass().getLevel().getXp();
 

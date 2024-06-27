@@ -31,7 +31,8 @@ export class MobEntityFactoryService {
             new MobEntity(
               mobClass,
               monsterProps.name,
-              monsterProps.image ? `${dndApiDomain}${monsterProps.image}` : ''
+              monsterProps.image ? `${dndApiDomain}${monsterProps.image}` : '',
+              monsterProps.index
             )
           );
           subscriber.complete();
@@ -63,7 +64,8 @@ export class MobEntityFactoryService {
           const mob = new MobEntity(
             mobClass,
             monsterProps.name,
-            monsterProps.image ? `${dndApiDomain}${monsterProps.image}` : ''
+            monsterProps.image ? `${dndApiDomain}${monsterProps.image}` : '',
+            monsterProps.index
           );
 
           mob.setRemainingLife(remainingLife);
