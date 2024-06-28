@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PeoplePlayingService } from '../people-playing/people-playing.service';
-import { GameClassesNames } from '../game-class/game-class';
+import { PeoplePlayingService } from '../../people-playing/people-playing.service';
+import { GameClassesNames } from '../../game-class/game-class';
 import { NgFor } from '@angular/common';
-import { PlayerStorageService } from '../player-storage/player-storage.service';
+import { PlayerStorageService } from '../../player-storage/player-storage.service';
 
 @Component({
   selector: 'app-about-screen',

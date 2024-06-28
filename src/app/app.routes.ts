@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from './home-page/home-page.component';
-import { NewGameComponent } from './new-game/new-game.component';
+import { HomePageComponent } from './screen/home-page/home-page.component';
+import { NewGameComponent } from './screen/new-game/new-game.component';
 import { LoadGameComponent } from './load-game/load-game.component';
-import { PreparationScreenComponent } from './preparation-screen/preparation-screen.component';
-import { InventoryScreenComponent } from './inventory-screen/inventory-screen.component';
-import { FightScreenComponent } from './fight-screen/fight-screen.component';
-import { ShopScreenComponent } from './shop-screen/shop-screen.component';
-import { StatusScreenComponent } from './status-screen/status-screen.component';
-import { AboutScreenComponent } from './about-screen/about-screen.component';
+import { PreparationScreenComponent } from './screen/preparation-screen/preparation-screen.component';
+import { InventoryScreenComponent } from './screen/inventory-screen/inventory-screen.component';
+import { FightScreenComponent } from './screen/fight-screen/fight-screen.component';
+import { ShopScreenComponent } from './screen/shop-screen/shop-screen.component';
+import { StatusScreenComponent } from './screen/status-screen/status-screen.component';
+import { AboutScreenComponent } from './screen/about-screen/about-screen.component';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [

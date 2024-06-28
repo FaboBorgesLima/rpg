@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { PlayerStorageService } from '../player-storage/player-storage.service';
-import { Player } from '../entity/player/player';
-import { StatusComponent } from '../status/status.component';
+import { PlayerStorageService } from '../../player-storage/player-storage.service';
+import { Player } from '../../entity/player/player';
+import { StatusComponent } from '../../status/status.component';
 
 @Component({
   selector: 'app-status-screen',

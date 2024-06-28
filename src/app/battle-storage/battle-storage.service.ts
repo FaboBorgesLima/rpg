@@ -76,8 +76,11 @@ export class BattleStorageService {
 
     if (!loadedPlayer) return;
 
+    console.log(battle);
+
     return new Observable<[Player, MobEntity]>((subscribe) => {
       const { mob } = battle;
+
       this.mobEntityFactory
         .loadFactory(mob.index, mob.stamina, mob.remainingLife)
         .subscribe({
@@ -87,8 +90,6 @@ export class BattleStorageService {
           },
           error: (e) => {
             console.warn(e);
-            subscribe.next([loadedPlayer, MobEntity.getDefault()]);
-            subscribe.complete();
           },
         });
     });

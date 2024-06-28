@@ -50,7 +50,7 @@ export abstract class Entity {
   }
 
   setRemainingLife(remainingLife: number): void {
-    this.stamina = Math.min(
+    this.remainingLife = Math.min(
       this.getGameClass().getMaxHealthPoints(),
       Math.max(remainingLife, 0)
     );

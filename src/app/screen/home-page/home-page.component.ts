@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PlayerStorageService } from '../player-storage/player-storage.service';
+import { PlayerStorageService } from '../../player-storage/player-storage.service';
 import { NgIf } from '@angular/common';
-import { PeoplePlayingService } from '../people-playing/people-playing.service';
+import { PeoplePlayingService } from '../../people-playing/people-playing.service';
 
 @Component({
   selector: 'app-home-page',

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { PlayerStorageService } from '../player-storage/player-storage.service';
-import { Player } from '../entity/player/player';
+import { PlayerStorageService } from '../../player-storage/player-storage.service';
+import { Player } from '../../entity/player/player';
 import { NgFor } from '@angular/common';
-import { GameItemFactoryService } from '../game-item-factory/game-item-factory.service';
-import { ShopItemCardComponent } from '../shop-item-card/shop-item-card.component';
-import { GameItem, ItemType } from '../game-item/game-item';
-import { GameItemFilterService } from '../game-item-filter/game-item-filter.service';
+import { GameItemFactoryService } from '../../game-item-factory/game-item-factory.service';
+import { ShopItemCardComponent } from '../../shop-item-card/shop-item-card.component';
+import { GameItem, ItemType } from '../../game-item/game-item';
+import { GameItemFilterService } from '../../game-item-filter/game-item-filter.service';
 
 @Component({
   selector: 'app-shop-screen',

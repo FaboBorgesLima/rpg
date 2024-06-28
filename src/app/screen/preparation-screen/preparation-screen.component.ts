@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import { PlayerStorageService } from '../player-storage/player-storage.service';
-import { Player } from '../entity/player/player';
+import { PlayerStorageService } from '../../player-storage/player-storage.service';
+import { Player } from '../../entity/player/player';
 
 @Component({
   selector: 'app-preparation-screen',

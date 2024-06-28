@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { IconsComponent } from '../icons/icons.component';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { GameClassesNames } from '../game-class/game-class';
-import { Player } from '../entity/player/player';
-import { GameClassFactoryService } from '../game-class-factory/game-class-factory.service';
-import { PlayerStorageService } from '../player-storage/player-storage.service';
+import { IconsComponent } from '../../icons/icons.component';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { GameClassesNames } from '../../game-class/game-class';
+import { Player } from '../../entity/player/player';
+import { GameClassFactoryService } from '../../game-class-factory/game-class-factory.service';
+import { PlayerStorageService } from '../../player-storage/player-storage.service';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -22,7 +27,11 @@ export class NewGameComponent {
     private router: Router
   ) {}
   form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]+')]),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z]+'),
+      Validators.minLength(3),
+    ]),
     gameClass: new FormControl<GameClassesNames>('warrior'),
   });
 
@@ -42,7 +51,7 @@ export class NewGameComponent {
     );
 
     alert(`Here begins ${heroName} adventure!`);
-    
+
     this.router.navigate(['preparation-screen'], {
       queryParams: { id: player.getId() },
     });
@@ -62,7 +71,5 @@ export class NewGameComponent {
     return gameClass;
   }
 
-  public start(heroName: string) {
-
-  }
+  public start(heroName: string) {}
 }

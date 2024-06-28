@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { PlayerStorageService } from '../player-storage/player-storage.service';
-import { Player } from '../entity/player/player';
+import { PlayerStorageService } from '../../player-storage/player-storage.service';
+import { Player } from '../../entity/player/player';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { GameItemCardComponent } from '../game-item-card/game-item-card.component';
+import { GameItemCardComponent } from '../../game-item-card/game-item-card.component';
 import { NgFor } from '@angular/common';
 
 @Component({

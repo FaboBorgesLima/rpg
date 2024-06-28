@@ -1,11 +1,11 @@
-import { LifeBarComponent } from '../life-bar/life-bar.component';
-import { PlayerStorageService } from '../player-storage/player-storage.service';
-import { Player } from '../entity/player/player';
+import { LifeBarComponent } from '../../life-bar/life-bar.component';
+import { PlayerStorageService } from '../../player-storage/player-storage.service';
+import { Player } from '../../entity/player/player';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { MobEntityFactoryService } from '../mob-entity-factory/mob-entity-factory.service';
-import { MobEntity } from '../entity/mob-entity/mob-entity';
-import { BattleStorageService } from '../battle-storage/battle-storage.service';
+import { MobEntityFactoryService } from '../../mob-entity-factory/mob-entity-factory.service';
+import { MobEntity } from '../../entity/mob-entity/mob-entity';
+import { BattleStorageService } from '../../battle-storage/battle-storage.service';
 
 @Component({
   selector: 'app-fight-screen',
@@ -50,6 +50,7 @@ export class FightScreenComponent implements OnInit {
 
       this.mobEntityFactory.createFactory(this.floor).subscribe({
         next: (newMob) => {
+          console.log(newMob);
           this.mob = newMob;
           this.battleStorageService.saveBattle(this.player, this.mob);
         },
@@ -64,6 +65,7 @@ export class FightScreenComponent implements OnInit {
 
     battleLoader.subscribe({
       next: ([player, mob]) => {
+        console.debug(player, mob);
         this.player = player;
         this.mob = mob;
       },
