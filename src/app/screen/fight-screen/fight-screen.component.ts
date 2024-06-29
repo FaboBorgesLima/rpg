@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MobEntityFactoryService } from '../../mob-entity-factory/mob-entity-factory.service';
 import { MobEntity } from '../../entity/mob-entity/mob-entity';
 import { BattleStorageService } from '../../battle-storage/battle-storage.service';
+import { ActionType } from '../../action/action';
 
 @Component({
   selector: 'app-fight-screen',
@@ -28,6 +29,7 @@ export class FightScreenComponent implements OnInit {
   floor: number = 0;
   player: Player = this.playerStorage.getDefaultPlayer(0);
   mob: MobEntity = MobEntity.getDefault();
+  lastMobAction: ActionType = 'attack';
 
   ngOnInit(): void {
     const urlId = this.activatedRoute.snapshot.queryParamMap.get('id');
@@ -73,19 +75,20 @@ export class FightScreenComponent implements OnInit {
   }
 
   onRound() {
-    // randomize mob.action
-    this.mob.setThoughtAction(this.player);
+    const playerAction = this.player.getAction(this.player.nextActionType);
+    const mobAction = this.mob.getThoughtAction(this.player);
 
-    this.mob.reciveAction(this.player);
-
-    this.player.reciveAction(this.mob);
+    const mobEffect = mobAction.interact(playerAction);
+    const playerEffect = playerAction.interact(mobAction);
 
     this.battleStorageService.saveBattle(this.player, this.mob);
 
-    if (
-      this.player.action == 'run' &&
-      this.player.getRunAwayChance(this.mob) > Math.random()
-    ) {
+    this.player.reciveEffect(playerEffect);
+    this.mob.reciveEffect(mobEffect);
+
+    this.lastMobAction = mobAction.getActionType();
+
+    if (playerEffect.runAway) {
       this.battleStorageService.endBattle(parseInt(this.id));
       alert(`you run away from ${this.mob.getName()}`);
       this.router.navigate(['preparation-screen'], {
@@ -94,10 +97,7 @@ export class FightScreenComponent implements OnInit {
       return;
     }
 
-    if (
-      this.mob.action == 'run' &&
-      this.mob.getRunAwayChance(this.player) > Math.random()
-    ) {
+    if (mobEffect.runAway) {
       this.battleStorageService.endBattle(parseInt(this.id));
       alert(`${this.mob.getName()} run away from you`);
       this.router.navigate(['preparation-screen'], {

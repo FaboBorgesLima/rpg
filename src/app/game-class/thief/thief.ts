@@ -7,15 +7,18 @@ export class Thief extends GameClass {
     super(xp);
   }
   override getMaxHealthPoints(): number {
-    return nFactorial(this.level.getLevelAmount() / 2) * 3 + 20;
+    return nFactorial(this.level.getLevelAmount() / 2) * 2 + 16;
   }
   override getAttack(): number {
-    return this.level.getLevelAmount() * 0.5 + 16;
+    return this.level.getLevelAmount() * 0.5 + 12;
   }
   override getDefense(): number {
-    return nFactorial(this.level.getLevelAmount()) * 1 + 2;
+    return this.level.getLevelAmount() * 1 + 2;
   }
   override getSpeed(): number {
-    return nFactorial(this.level.getLevelAmount()) * 1 + 10;
+    return this.level.getLevelAmount() * 1 + 10;
+  }
+  override getMaxStamina(): number {
+    return this.level.getLevelAmount() * 5 + 95;
   }
 }

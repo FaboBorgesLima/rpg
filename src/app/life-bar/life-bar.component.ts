@@ -11,19 +11,20 @@ import { PercentPipe } from '@angular/common';
   imports: [],
   templateUrl: './life-bar.component.html',
   styleUrl: './life-bar.component.css',
-  providers: [PercentPipe]
+  providers: [PercentPipe],
 })
 export class LifeBarComponent {
-
-  constructor(
-    private percentPipe: PercentPipe,
-  ) {}
+  constructor(private percentPipe: PercentPipe) {}
 
   @Input({ required: true }) entity!: Entity;
 
-  getLength(ent: Entity): string {
+  getLength(): string {
     const percent: number = this.entity.getRemainingLifePercentage();
-    return this.percentPipe.transform(percent,'1.0-0')!;
+    return this.percentPipe.transform(percent, '1.0-0')!;
+  }
+  getLengthStamina(): string {
+    const percent: number = this.entity.getStaminaPercentage();
+    return this.percentPipe.transform(percent, '1.0-0')!;
   }
 
   min0(n: number): number {

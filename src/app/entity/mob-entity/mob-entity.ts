@@ -1,13 +1,12 @@
+import { Action, ActionType } from '../../action/action';
 import { Currency } from '../../currency/currency';
 import { GameClass } from '../../game-class/game-class';
 import { MobClass } from '../../game-class/mob-class/mob-class';
 import { Clothes } from '../../game-item/armors/clothes/clothes';
 import { Fists } from '../../game-item/weapons/fists/fists';
-import { Entity, EntityAction } from '../entity';
+import { Entity } from '../entity';
 
 export class MobEntity extends Entity {
-  override action: EntityAction = 'attack';
-
   constructor(
     mobClass: GameClass,
     name: string,
@@ -27,7 +26,7 @@ export class MobEntity extends Entity {
     return new MobEntity(MobClass.getDefault(), '404', '', 'not found');
   }
 
-  getRandomAction(): EntityAction {
+  getRandomAction(): ActionType {
     const between0and2 = MobEntity.getRandomIntBetween(0, 3);
 
     switch (between0and2) {
@@ -45,8 +44,8 @@ export class MobEntity extends Entity {
    * @param oponent
    * @returns a action based in env vars of the mob
    */
-  getThoughtAction(oponent: Entity): EntityAction {
-    if (this.getStaminaPercentage() < 1.5 * Math.random()) {
+  getThoughtActionType(oponent: Entity): ActionType {
+    if (this.getStaminaPercentage() < 1 * Math.random()) {
       return 'defense';
     }
 
@@ -61,19 +60,10 @@ export class MobEntity extends Entity {
     return 'attack';
   }
 
-  /**
-   * will set action to random action
-   */
-  setThoughtAction(oponent: Entity): void {
-    this.action = this.getThoughtAction(oponent);
+  getThoughtAction(oponent: Entity): Action {
+    return this.getAction(this.getThoughtActionType(oponent));
   }
 
-  /**
-   * will set action to random action
-   */
-  setRandomAction(): void {
-    this.action = this.getRandomAction();
-  }
   /**
    *
    * @param min example 0

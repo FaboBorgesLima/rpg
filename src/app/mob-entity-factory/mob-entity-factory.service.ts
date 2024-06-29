@@ -54,7 +54,8 @@ export class MobEntityFactoryService {
       monsterProps.hit_points,
       monsterProps.strength * 0.2,
       monsterProps.constitution * 2,
-      monsterProps.dexterity
+      monsterProps.dexterity,
+      monsterProps.dexterity * 9
     );
     const mob = new MobEntity(
       mobClass,

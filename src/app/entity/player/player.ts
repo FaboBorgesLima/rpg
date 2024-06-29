@@ -1,11 +1,11 @@
-import { Entity, EntityAction } from '../entity';
+import { Entity } from '../entity';
 import { GameClass } from '../../game-class/game-class';
 import { GameItem } from '../../game-item/game-item';
 import { Currency } from '../../currency/currency';
-import { GameItemFactoryService } from '../../game-item-factory/game-item-factory.service';
+import { ActionType } from '../../action/action';
 
 export class Player extends Entity {
-  public action: EntityAction = 'defense';
+  public nextActionType: ActionType = 'attack';
   constructor(
     name: string,
     protected playerClass: GameClass,

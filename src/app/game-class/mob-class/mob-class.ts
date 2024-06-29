@@ -1,13 +1,17 @@
 import { GameClass, GameClassesNames } from '../game-class';
 
 export class MobClass extends GameClass {
+  override getMaxStamina(): number {
+    return this.maxStamina;
+  }
   constructor(
     xp: number,
     name: GameClassesNames,
     private life: number,
     private attack: number,
     private defense: number,
-    private speed: number
+    private speed: number,
+    private maxStamina: number
   ) {
     super(xp);
     this.name = name;
@@ -27,6 +31,6 @@ export class MobClass extends GameClass {
   }
 
   static getDefault(): MobClass {
-    return new MobClass(404, 'mob', 404, 44, 4, 44);
+    return new MobClass(4040, 'mob', 200, 44, 4, 44, 200);
   }
 }

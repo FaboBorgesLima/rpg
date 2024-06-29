@@ -1,14 +1,26 @@
 <p class="pt-2 text-gray-50">
   {{ entity.getName() }}
 </p>
-<section class="h-2 w-full bg-gray-600 relative rounded-lg">
+<section class="h-fit w-full bg-gray-600 relative rounded-lg mb-2">
+  <p class="text-gray-50 z-20 relative p-1 shadow-sm">
+    hp: {{ min0(entity.getRemainingLife()).toFixed(1) }}/{{
+      entity.getGameClass().getMaxHealthPoints().toFixed(1)
+    }}
+  </p>
   <div
-    [style.width]="getLength(entity)"
-    class="h-2 bg-red-500 absolute top-0 left-0 z-10 rounded-lg"
+    [style.width]="getLength()"
+    class="h-full bg-red-500 absolute top-0 left-0 z-10 rounded-lg"
   ></div>
 </section>
-<p class="pt-2 text-gray-50">
-  {{ min0(entity.getRemainingLife()).toFixed(1) }}/{{
-    entity.getGameClass().getMaxHealthPoints().toFixed(1)
-  }}
-</p>
+
+<section class="h-fit w-full bg-gray-600 relative rounded-lg">
+  <p class="text-gray-50 z-20 relative p-1">
+    stamina: {{ min0(entity.getStamina()).toFixed(1) }}/{{
+      entity.getGameClass().getMaxStamina().toFixed(1)
+    }}
+  </p>
+  <div
+    [style.width]="getLengthStamina()"
+    class="h-full bg-yellow-500 absolute top-0 left-0 z-10 rounded-lg"
+  ></div>
+</section>

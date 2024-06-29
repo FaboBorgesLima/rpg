@@ -7,15 +7,18 @@ export class Warrior extends GameClass {
     super(xp);
   }
   override getMaxHealthPoints(): number {
-    return nFactorial(this.level.getLevelAmount() / 2) * 5 + 16;
+    return nFactorial(this.level.getLevelAmount() / 2) * 1 + 20;
   }
   override getAttack(): number {
-    return this.level.getLevelAmount() * 1 + 12;
+    return this.level.getLevelAmount() * 1 + 5;
   }
   override getDefense(): number {
-    return nFactorial(this.level.getLevelAmount()) * 2 + 1;
+    return this.level.getLevelAmount();
   }
   override getSpeed(): number {
-    return nFactorial(this.level.getLevelAmount()) * 0.5 + 8;
+    return this.level.getLevelAmount() * 0.5 + 8;
+  }
+  override getMaxStamina(): number {
+    return this.level.getLevelAmount() * 5 + 95;
   }
 }

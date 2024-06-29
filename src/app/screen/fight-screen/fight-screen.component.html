@@ -5,10 +5,10 @@
     </h1>
   </header>
 
-  <app-life-bar [entity]="mob"></app-life-bar>
+  <app-life-bar [entity]="mob" color="red"></app-life-bar>
 
   <section class="w-4/5 xl:w-3/5 mx-auto bg-black/20">
-    <p class="text-white text-center">{{ mob.action }}!</p>
+    <p class="text-white text-center">{{ lastMobAction }}!</p>
     <img
       [src]="mob.image"
       alt=""
@@ -16,24 +16,24 @@
     />
   </section>
 
-  <app-life-bar [entity]="player"></app-life-bar>
+  <app-life-bar [entity]="player" color="red"></app-life-bar>
 
   <footer class="grid grid-cols-2 grid-rows-2 uppercase gap-4 pb-4">
     <button
       class="btn bg-red-500 hover:opacity-95"
-      (click)="player.action = 'attack'; onRound()"
+      (click)="player.nextActionType = 'attack'; onRound()"
     >
       Attack ({{ (player.getStrikeChance() * 100).toFixed(0) }}%)
     </button>
     <button
       class="btn bg-yellow-500 hover:opacity-95"
-      (click)="player.action = 'defense'; onRound()"
+      (click)="player.nextActionType = 'defense'; onRound()"
     >
       Defense
     </button>
     <button
       class="btn bg-blue-500 hover:opacity-95 col-span-2"
-      (click)="player.action = 'run'; onRound()"
+      (click)="player.nextActionType = 'run'; onRound()"
     >
       Run ({{ (player.getRunAwayChance(mob) * 100).toFixed(0) }}%)
     </button>

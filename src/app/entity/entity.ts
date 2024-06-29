@@ -1,11 +1,11 @@
+import { Action, ActionType } from '../action/action';
 import { Currency } from '../currency/currency';
+import { Effect } from '../effect/effect';
 import { GameClass } from '../game-class/game-class';
 import { GameItem } from '../game-item/game-item';
 
 export abstract class Entity {
   private remainingLife: number = 0;
-
-  abstract action: EntityAction;
 
   private stamina: number = 0;
 
@@ -18,7 +18,7 @@ export abstract class Entity {
   ) {
     this.remainingLife = this.gameClass.getMaxHealthPoints();
 
-    this.stamina = 100;
+    this.stamina = this.gameClass.getMaxStamina();
   }
 
   getGold(): Currency {
@@ -41,12 +41,21 @@ export abstract class Entity {
     return this.remainingLife;
   }
 
+  reciveEffect(effect: Effect): void {
+    this.setRemainingLife(this.getRemainingLife() + effect.deltaLife);
+
+    this.setStamina(this.getStamina() + effect.deltaStamina);
+  }
+
   resetRemainingLife(): void {
     this.remainingLife = this.getGameClass().getMaxHealthPoints();
   }
 
   setStamina(stamina: number): void {
-    this.stamina = Math.min(100, Math.max(stamina, 0));
+    this.stamina = Math.min(
+      this.gameClass.getMaxStamina(),
+      Math.max(stamina, 0)
+    );
   }
 
   setRemainingLife(remainingLife: number): void {
@@ -62,44 +71,6 @@ export abstract class Entity {
     );
   }
 
-  reciveAction(from: Entity) {
-    switch (from.action) {
-      case 'defense':
-        break;
-      case 'attack':
-        if (!from.willStrike()) break;
-
-        if (this.action == 'defense') {
-          this.remainingLife -=
-            (this.getDamageSusceptibility() / 2) * from.getTotalDamage();
-          break;
-        }
-
-        if (this.action == 'run') {
-          this.remainingLife -=
-            this.getDamageSusceptibility() * 2 * from.getTotalDamage();
-          break;
-        }
-
-        this.remainingLife -=
-          this.getDamageSusceptibility() * from.getTotalDamage();
-        break;
-      case 'run':
-    }
-
-    switch (this.action) {
-      case 'defense':
-        this.setStamina(this.stamina + 15);
-        break;
-      case 'attack':
-        this.setStamina(this.stamina - 10);
-        break;
-      case 'run':
-        this.setStamina(this.stamina - 20);
-        break;
-    }
-  }
-
   getTotalDamage(): number {
     return this.getGameClass().getAttack() + this.weapon.getDamage();
   }
@@ -112,17 +83,20 @@ export abstract class Entity {
     return this.stamina;
   }
   getStaminaPercentage(): number {
-    return this.getStamina() / 100;
+    return this.getStamina() / this.gameClass.getMaxStamina();
   }
 
   /**
    *
    * @returns says if a entity will strike
    */
-  protected willStrike(): boolean {
+  willStrike(): boolean {
     return this.getStrikeChance() > Math.random();
   }
-
+  /**
+   *
+   * @returns a number between 1 (will run away) and 0 (will not run away)
+   */
   getRunAwayChance(from: Entity): number {
     const speedSum =
       from.getGameClass().getSpeed() + this.getGameClass().getSpeed();
@@ -144,6 +118,14 @@ export abstract class Entity {
     );
   }
 
+  getAction(actionType: ActionType): Action {
+    return new Action(this, actionType);
+  }
+
+  /**
+   *
+   * @returns a number between 1 and 0
+   */
   getStrikeChance(): number {
     return this.getStaminaPercentage();
   }
@@ -152,8 +134,7 @@ export abstract class Entity {
    *
    * @returns gets the base percentage of damage recived, is a number between 0 and 1
    */
-  protected getDamageSusceptibility(): number {
+  getDamageSusceptibility(): number {
     return Math.max((100 - this.getTotalDefense()) / 100, 0.5);
   }
 }
-export type EntityAction = 'defense' | 'attack' | 'run';
