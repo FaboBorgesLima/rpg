@@ -71,20 +71,12 @@ export class MobEntityFactoryService {
     stamina: number,
     remainingLife: number
   ): Observable<MobEntity> {
-    console.debug(
-      'load factory stamina,remaining life',
-      stamina,
-      remainingLife
-    );
-
     return new Observable((subscriber) => {
       this.getMonsterByIndex(index).subscribe({
         next: (mob) => {
           mob.setRemainingLife(remainingLife);
 
           mob.setStamina(stamina);
-
-          console.debug('load factory mob', mob);
 
           subscriber.next(mob);
           subscriber.complete();

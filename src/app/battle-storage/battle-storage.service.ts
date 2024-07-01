@@ -76,8 +76,6 @@ export class BattleStorageService {
 
     if (!loadedPlayer) return;
 
-    console.log(battle);
-
     return new Observable<[Player, MobEntity]>((subscribe) => {
       const { mob } = battle;
 

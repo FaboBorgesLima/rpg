@@ -12,14 +12,9 @@ import { PeoplePlayingService } from '../../people-playing/people-playing.servic
   styleUrl: './home-page.component.css',
   host: { class: 'grow flex' },
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent {
   constructor(
     public playerStorageService: PlayerStorageService,
     private peoplePlayingService: PeoplePlayingService
   ) {}
-  ngOnInit(): void {
-    this.peoplePlayingService.getPeoplePlaying().then((db) => {
-      console.log(db);
-    });
-  }
 }

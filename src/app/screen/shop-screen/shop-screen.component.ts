@@ -32,7 +32,6 @@ export class ShopScreenComponent implements OnInit {
 
   ngOnInit(): void {
     const tryId = this.activatedRoute.snapshot.queryParamMap.get('id');
-    console.log(this.activatedRoute.snapshot.queryParamMap.get('id'));
 
     if (!tryId) {
       this.router.navigate(['load-game']);

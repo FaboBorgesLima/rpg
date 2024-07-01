@@ -17,9 +17,6 @@ export class PeoplePlayingService {
       );
 
       const data: PeoplePlayingDb = await res.json();
-
-      console.log('get', data);
-
       if (!data['saves']) return { saves: {}, keysLength: 3 };
 
       return data;
@@ -54,11 +51,7 @@ export class PeoplePlayingService {
   }
 
   async syncPlayerSaves(playerDb: PlayerDb): Promise<boolean> {
-    console.log('syncing');
     const db = await this.getPeoplePlaying();
-
-    console.log('sync in', db);
-
     const playerDbKeys = Object.keys(playerDb);
 
     for (const key of playerDbKeys) {
@@ -69,7 +62,6 @@ export class PeoplePlayingService {
         name: player.name,
       };
     }
-    console.log('sync out', db);
 
     try {
       await this.updatePeoplePlaying(db);

@@ -21,8 +21,7 @@ export class AboutScreenComponent implements OnInit {
 
   savesN: number = 0;
   ngOnInit(): void {
-    this.playerStorageService.syncWithPantry().then((data) => {
-      console.log(data);
+    this.playerStorageService.syncWithPantry().then(() => {
       this.peoplePlayingService.getPeoplePlaying().then((playersData) => {
         const playerDataKeys = Object.keys(playersData.saves);
 
@@ -42,8 +41,6 @@ export class AboutScreenComponent implements OnInit {
     });
   }
   deleteAllSaves(): void {
-    this.peoplePlayingService.deleteAll().then(() => {
-      console.log('deleted');
-    });
+    this.peoplePlayingService.deleteAll().then(() => {});
   }
 }

@@ -52,7 +52,6 @@ export class FightScreenComponent implements OnInit {
 
       this.mobEntityFactory.createFactory(this.floor).subscribe({
         next: (newMob) => {
-          console.log(newMob);
           this.mob = newMob;
           this.battleStorageService.saveBattle(this.player, this.mob);
         },
@@ -67,7 +66,6 @@ export class FightScreenComponent implements OnInit {
 
     battleLoader.subscribe({
       next: ([player, mob]) => {
-        console.debug(player, mob);
         this.player = player;
         this.mob = mob;
       },
