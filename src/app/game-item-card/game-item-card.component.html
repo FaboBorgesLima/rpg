@@ -5,17 +5,28 @@
   <h1 class="text-white text-xl">
     {{ gameItem.getItemType() }}: {{ gameItem.getName() }}
   </h1>
-  <p *ngSwitchCase="'armor'">protection: {{ gameItem.getProtection() }}</p>
-  <p *ngSwitchCase="'usable'">life regen: {{ gameItem.getLifeRegen() }}</p>
-  <p *ngSwitchCase="'weapon'">damage: {{ gameItem.getDamage() }}</p>
-  <button
-    (click)="onEquip()"
-    *ngIf="
-      gameItem != player.armor &&
-      gameItem != player.weapon &&
-      gameItem.getItemType() != 'usable'
-    "
+  <div *ngIf="!ifIsUsable" class="flex flex-col gap-4">
+    <p *ngSwitchCase="'armor'">protection: {{ gameItem.getProtection() }}</p>
+    <p *ngSwitchCase="'weapon'">damage: {{ gameItem.getDamage() }}</p>
+  </div>
+  <app-usable-item-description *ngIf="ifIsUsable" [item]="ifIsUsable">
+  </app-usable-item-description>
+
+  <div
+    *ngIf="gameItem != player.armor && gameItem != player.weapon"
+    class="grid grid-cols-2 gap-4"
   >
-    equip
-  </button>
+    <button (click)="onSell()" class="btn bg-yellow-500">
+      sell ({{ gameItem.getSalePrice() }} gold)
+    </button>
+    <button
+      (click)="onEquip()"
+      *ngIf="gameItem.getItemType() != 'usable'"
+      class="btn"
+      [class.bg-red-500]="gameItem.getItemType() == 'weapon'"
+      [class.bg-blue-500]="gameItem.getItemType() == 'armor'"
+    >
+      equip
+    </button>
+  </div>
 </section>

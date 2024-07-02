@@ -7,6 +7,9 @@ import { Bread } from '../game-item/usables/bread/bread';
 import { IronMace } from '../game-item/weapons/iron-mace/iron-mace';
 import { LeatherArmor } from '../game-item/armors/leather-armor/leather-armor';
 import { IronArmor } from '../game-item/armors/iron-armor/iron-armor';
+import { UsableItem } from '../game-item/usables/usable-item';
+import { ArmorItem } from '../game-item/armors/armor-item';
+import { WeaponItem } from '../game-item/weapons/weapon-item';
 
 @Injectable({
   providedIn: 'root',
@@ -36,15 +39,15 @@ export class GameItemFactoryService {
     return new Clothes();
   }
 
-  getUsables(): GameItem[] {
+  getUsables(): UsableItem[] {
     return [new Bread()];
   }
 
-  getArmors(): GameItem[] {
+  getArmors(): ArmorItem[] {
     return [new Clothes(), new LeatherArmor(), new IronArmor()];
   }
 
-  getWeapons(): GameItem[] {
+  getWeapons(): WeaponItem[] {
     return [new Fists(), new Sword(), new IronMace()];
   }
 }

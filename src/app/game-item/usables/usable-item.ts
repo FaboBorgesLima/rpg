@@ -1,3 +1,4 @@
+import { Effect } from '../../effect/effect';
 import { GameItem } from '../game-item';
 
 export abstract class UsableItem extends GameItem {
@@ -10,4 +11,6 @@ export abstract class UsableItem extends GameItem {
   override getProtection(): number {
     return 0;
   }
+
+  abstract getEffects(): Effect;
 }

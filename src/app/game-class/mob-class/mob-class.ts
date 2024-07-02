@@ -33,4 +33,7 @@ export class MobClass extends GameClass {
   static getDefault(): MobClass {
     return new MobClass(4040, 'mob', 200, 44, 4, 44, 200);
   }
+  override getInventorySize(): number {
+    return 0;
+  }
 }

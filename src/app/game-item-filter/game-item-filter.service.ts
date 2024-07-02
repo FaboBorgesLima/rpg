@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../entity/player/player';
-import { GameItem } from '../game-item/game-item';
+import { GameItem, GameItem as T } from '../game-item/game-item';
+import { UsableItem } from '../game-item/usables/usable-item';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { GameItem } from '../game-item/game-item';
 export class GameItemFilterService {
   constructor() {}
 
-  doesPlayerHaveItem(player: Player, gameItem: GameItem): boolean {
+  doesPlayerHaveItem<T extends GameItem>(player: Player, gameItem: T): boolean {
     if (player.armor.getName() == gameItem.getName()) return true;
 
     if (player.weapon.getName() == gameItem.getName()) return true;
@@ -20,13 +21,21 @@ export class GameItemFilterService {
     return false;
   }
 
-  removeAlreadyBuyed(gameItems: GameItem[], player: Player): GameItem[] {
-    const filtered: GameItem[] = [];
+  removeAlreadyBuyed<T extends GameItem>(gameItems: T[], player: Player): T[] {
+    const filtered: T[] = [];
 
     for (const gameItem of gameItems) {
       if (!this.doesPlayerHaveItem(player, gameItem)) filtered.push(gameItem);
     }
 
     return filtered;
+  }
+
+  getOnlyUsables<T extends GameItem>(gameItems: T[]): UsableItem[] {
+    const usables: UsableItem[] = [];
+    for (const item of gameItems) {
+      if (item instanceof UsableItem) usables.push(item);
+    }
+    return usables;
   }
 }

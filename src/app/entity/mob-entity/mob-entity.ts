@@ -18,7 +18,8 @@ export class MobEntity extends Entity {
       mobClass,
       new Clothes(),
       new Fists(),
-      new Currency(mobClass.getLevel().getXp() / 2)
+      new Currency(mobClass.getLevel().getXp() / 2),
+      []
     );
   }
 

@@ -4,6 +4,7 @@ import { MobEntityFactoryService } from '../mob-entity-factory/mob-entity-factor
 import { Player } from '../entity/player/player';
 import { MobEntity } from '../entity/mob-entity/mob-entity';
 import { Observable } from 'rxjs';
+import { Effect } from '../effect/effect';
 
 @Injectable({
   providedIn: 'root',
@@ -33,13 +34,11 @@ export class BattleStorageService {
 
     db[player.getId()] = {
       player: {
-        remainingLife: player.getRemainingLife(),
-        stamina: player.getStamina(),
+        recivedEffects: player.getRecivedEffects(),
       },
       mob: {
-        remainingLife: mobEntity.getRemainingLife(),
-        stamina: mobEntity.getStamina(),
         index: mobEntity.index,
+        recivedEffects: mobEntity.getRecivedEffects(),
       },
     };
 
@@ -70,8 +69,8 @@ export class BattleStorageService {
 
     const loadedPlayer = this.playerStorage.loadPlayer(
       playerId,
-      player.remainingLife,
-      player.stamina
+
+      player.recivedEffects
     );
 
     if (!loadedPlayer) return;
@@ -80,7 +79,11 @@ export class BattleStorageService {
       const { mob } = battle;
 
       this.mobEntityFactory
-        .loadFactory(mob.index, mob.stamina, mob.remainingLife)
+        .loadFactory(
+          mob.index,
+
+          mob.recivedEffects
+        )
         .subscribe({
           next: (loadedMob) => {
             subscribe.next([loadedPlayer, loadedMob]);
@@ -92,6 +95,27 @@ export class BattleStorageService {
         });
     });
   }
+
+  getPlayerWithStatusById(id: number): Player | void {
+    const battle = this.getBattleByPlayerId(id);
+    if (!battle) return;
+
+    return this.playerStorage.loadPlayer(id, battle.player.recivedEffects);
+  }
+
+  setPlayerWithStatus(player: Player): void {
+    const db = this.getDb();
+
+    const battle = db[player.getId()];
+
+    if (!battle) return;
+
+    battle.player = { recivedEffects: player.getRecivedEffects() };
+
+    db[player.getId()] = battle;
+
+    this.writeDb(db);
+  }
 }
 
 export interface BattleDb {
@@ -99,6 +123,9 @@ export interface BattleDb {
 }
 
 interface BattleSchema {
-  player: { remainingLife: number; stamina: number };
-  mob: { remainingLife: number; stamina: number; index: string };
+  player: { recivedEffects: Effect[] };
+  mob: {
+    index: string;
+    recivedEffects: Effect[];
+  };
 }

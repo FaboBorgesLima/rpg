@@ -7,6 +7,7 @@ import { GameItem } from '../game-item/game-item';
 import { Currency } from '../currency/currency';
 import { PeoplePlayingService } from '../people-playing/people-playing.service';
 import { MobEntityFactoryService } from '../mob-entity-factory/mob-entity-factory.service';
+import { Effect } from '../effect/effect';
 
 @Injectable({
   providedIn: 'root',
@@ -152,18 +153,12 @@ export class PlayerStorageService {
     );
   }
 
-  loadPlayer(
-    id: number,
-    remainingLife: number,
-    stamina: number
-  ): void | Player {
+  loadPlayer(id: number, recivedEffects: Effect[]): void | Player {
     const player = this.getById(id);
 
     if (!player) return;
 
-    player.setRemainingLife(remainingLife);
-
-    player.setStamina(stamina);
+    player.setRecivedEffects(recivedEffects);
 
     return player;
   }

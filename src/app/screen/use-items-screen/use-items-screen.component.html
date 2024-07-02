@@ -1,0 +1,16 @@
+<main class="container grow mx-auto flex flex-col gap-4 m-4 text-gray-50">
+  <div class="sticky top-0 flex flex-col p-4">
+    <a
+      routerLink="/fight-screen"
+      [queryParams]="{ id: id }"
+      class="btn bg-red-500"
+      >return to battle</a
+    >
+  </div>
+
+  <app-use-item-card
+    *ngFor="let item of gameItemsFilter.getOnlyUsables(player.gameItems)"
+    [player]="player"
+    [usable]="item"
+  ></app-use-item-card>
+</main>

@@ -29,7 +29,7 @@ export class NewGameComponent {
   form = new FormGroup({
     name: new FormControl('', [
       Validators.required,
-      Validators.pattern('[a-zA-Z]+'),
+      Validators.pattern('^[a-zA-Z0-9_-][a-zA-Z0-9 _-]+'),
       Validators.minLength(3),
     ]),
     gameClass: new FormControl<GameClassesNames>('warrior'),

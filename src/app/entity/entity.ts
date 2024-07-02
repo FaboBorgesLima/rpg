@@ -1,25 +1,23 @@
+import { effect } from '@angular/core';
 import { Action, ActionType } from '../action/action';
 import { Currency } from '../currency/currency';
-import { Effect } from '../effect/effect';
+import { Effect, getDefaultEffect, sumEffects } from '../effect/effect';
 import { GameClass } from '../game-class/game-class';
 import { GameItem } from '../game-item/game-item';
+import { ArmorItem } from '../game-item/armors/armor-item';
+import { WeaponItem } from '../game-item/weapons/weapon-item';
 
 export abstract class Entity {
-  private remainingLife: number = 0;
-
-  private stamina: number = 0;
+  private recivedEffects: Effect[] = [];
 
   constructor(
     protected name: string,
     private gameClass: GameClass,
-    public armor: GameItem,
-    public weapon: GameItem,
-    private gold: Currency
-  ) {
-    this.remainingLife = this.gameClass.getMaxHealthPoints();
-
-    this.stamina = this.gameClass.getMaxStamina();
-  }
+    public armor: ArmorItem,
+    public weapon: WeaponItem,
+    private gold: Currency,
+    public gameItems: GameItem[]
+  ) {}
 
   getGold(): Currency {
     return this.gold;
@@ -34,53 +32,58 @@ export abstract class Entity {
   }
 
   isAlive(): boolean {
-    return this.remainingLife > 0;
+    return this.getRemainingLife() > 0;
+  }
+
+  private getSumOfRecivedEffects(): Effect {
+    let effect: Effect = getDefaultEffect();
+    for (const recived of this.recivedEffects) {
+      effect = sumEffects(recived, effect);
+    }
+    return effect;
   }
 
   getRemainingLife(): number {
-    return this.remainingLife;
-  }
-
-  reciveEffect(effect: Effect): void {
-    this.setRemainingLife(this.getRemainingLife() + effect.deltaLife);
-
-    this.setStamina(this.getStamina() + effect.deltaStamina);
-  }
-
-  resetRemainingLife(): void {
-    this.remainingLife = this.getGameClass().getMaxHealthPoints();
-  }
-
-  setStamina(stamina: number): void {
-    this.stamina = Math.min(
-      this.gameClass.getMaxStamina(),
-      Math.max(stamina, 0)
+    return (
+      this.gameClass.getMaxHealthPoints() +
+      this.getSumOfRecivedEffects().deltaLife
     );
   }
+  getRecivedEffects(): Effect[] {
+    return this.recivedEffects;
+  }
 
-  setRemainingLife(remainingLife: number): void {
-    this.remainingLife = Math.min(
-      this.getGameClass().getMaxHealthPoints(),
-      Math.max(remainingLife, 0)
-    );
+  applyEffect(effect: Effect): void {
+    this.recivedEffects.push(effect);
   }
 
   getRemainingLifePercentage(): number {
     return (
-      Math.max(this.remainingLife, 0) / this.gameClass.getMaxHealthPoints()
+      Math.max(this.getRemainingLife(), 0) / this.gameClass.getMaxHealthPoints()
     );
   }
 
   getTotalDamage(): number {
-    return this.getGameClass().getAttack() + this.weapon.getDamage();
+    return (
+      this.getGameClass().getAttack() +
+      this.weapon.getDamage() +
+      this.getSumOfRecivedEffects().deltaStrength
+    );
   }
 
   getTotalDefense(): number {
-    return this.gameClass.getDefense() + this.armor.getProtection();
+    return (
+      this.gameClass.getDefense() +
+      this.armor.getProtection() +
+      this.getSumOfRecivedEffects().deltaDefense
+    );
   }
 
   getStamina(): number {
-    return this.stamina;
+    return (
+      this.gameClass.getMaxStamina() +
+      this.getSumOfRecivedEffects().deltaStamina
+    );
   }
   getStaminaPercentage(): number {
     return this.getStamina() / this.gameClass.getMaxStamina();
@@ -122,6 +125,10 @@ export abstract class Entity {
     return new Action(this, actionType);
   }
 
+  setRecivedEffects(recivedEffects: Effect[]): void {
+    this.recivedEffects = recivedEffects;
+  }
+
   /**
    *
    * @returns a number between 1 and 0
@@ -136,5 +143,24 @@ export abstract class Entity {
    */
   getDamageSusceptibility(): number {
     return Math.max((100 - this.getTotalDefense()) / 100, 0.5);
+  }
+
+  equipItem(gameItem: GameItem): void {
+    const index = this.gameItems.findIndex(
+      (item) => item.getName() == gameItem.getName()
+    );
+
+    if (index == -1) return;
+
+    if (gameItem instanceof ArmorItem) {
+      this.gameItems.splice(index, 1);
+      this.armor = gameItem;
+      return;
+    }
+    if (gameItem instanceof WeaponItem) {
+      this.gameItems.splice(index, 1);
+      this.weapon = gameItem;
+      return;
+    }
   }
 }

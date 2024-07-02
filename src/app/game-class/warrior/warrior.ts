@@ -21,4 +21,7 @@ export class Warrior extends GameClass {
   override getMaxStamina(): number {
     return this.level.getLevelAmount() * 5 + 95;
   }
+  override getInventorySize(): number {
+    return this.level.getLevelAmount() + 5;
+  }
 }

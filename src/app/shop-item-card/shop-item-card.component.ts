@@ -1,18 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Player } from '../entity/player/player';
 import { GameItem } from '../game-item/game-item';
 import { NgIf } from '@angular/common';
 import { GameItemFactoryService } from '../game-item-factory/game-item-factory.service';
 import { PlayerStorageService } from '../player-storage/player-storage.service';
+import { UsableItemDescriptionComponent } from '../usable-item-description/usable-item-description.component';
+import { UsableItem } from '../game-item/usables/usable-item';
 
 @Component({
   selector: 'app-shop-item-card',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, UsableItemDescriptionComponent],
   templateUrl: './shop-item-card.component.html',
   styleUrl: './shop-item-card.component.css',
 })
-export class ShopItemCardComponent {
+export class ShopItemCardComponent implements OnInit {
   @Input({ required: true }) player!: Player;
   @Output() playerChange = new EventEmitter<Player>();
 
@@ -21,25 +23,13 @@ export class ShopItemCardComponent {
     private gameItemFactory: GameItemFactoryService,
     private playerStorage: PlayerStorageService
   ) {}
-
-  getCountOnInventory(player: Player): number {
-    let count = 0;
-    player.gameItems.forEach((playerItem) => {
-      if (playerItem.getName() == this.item.getName()) count++;
-    });
-
-    return count;
+  isUsable: UsableItem | undefined;
+  ngOnInit(): void {
+    if (this.item instanceof UsableItem) this.isUsable = this.item;
   }
 
   onBuy(): void {
-    if (this.player.getGold().canBuy(this.item.getPrice())) {
-      this.player.gameItems.push(
-        this.gameItemFactory.factory(this.item.getName())
-      );
-
-      this.player.getGold().minus(this.item.getPrice());
-
-      this.playerStorage.update(this.player);
-    }
+    this.player.buyItem(this.gameItemFactory.factory(this.item.getName()));
+    this.playerStorage.update(this.player);
   }
 }

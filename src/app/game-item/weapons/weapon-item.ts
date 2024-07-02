@@ -5,9 +5,6 @@ export abstract class WeaponItem extends GameItem {
     super(name, 'weapon', price);
   }
 
-  override getLifeRegen(): number {
-    return 0;
-  }
   override getProtection(): number {
     return 0;
   }

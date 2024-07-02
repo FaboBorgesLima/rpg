@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { MobEntity } from '../entity/mob-entity/mob-entity';
 import { MobClass } from '../game-class/mob-class/mob-class';
 import { dndApiDomain } from '../app.config';
+import { Effect } from '../effect/effect';
 
 @Injectable({
   providedIn: 'root',
@@ -66,17 +67,11 @@ export class MobEntityFactoryService {
     return mob;
   }
 
-  loadFactory(
-    index: string,
-    stamina: number,
-    remainingLife: number
-  ): Observable<MobEntity> {
+  loadFactory(index: string, recivedEffects: Effect[]): Observable<MobEntity> {
     return new Observable((subscriber) => {
       this.getMonsterByIndex(index).subscribe({
         next: (mob) => {
-          mob.setRemainingLife(remainingLife);
-
-          mob.setStamina(stamina);
+          mob.setRecivedEffects(recivedEffects);
 
           subscriber.next(mob);
           subscriber.complete();

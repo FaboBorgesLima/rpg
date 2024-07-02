@@ -17,7 +17,11 @@ export class Action {
 
     switch (this.actionType) {
       case 'defense':
-        output.deltaStamina = 15;
+        if (
+          this.owner.getStamina() + 15 <=
+          this.owner.getGameClass().getMaxStamina()
+        )
+          output.deltaStamina = 15;
         break;
       case 'attack':
         output.deltaStamina = -5;

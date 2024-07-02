@@ -13,8 +13,10 @@ export abstract class GameItem {
   getPrice(): number {
     return this.price;
   }
+  getSalePrice(): number {
+    return Math.trunc(this.price / 2);
+  }
   abstract getProtection(): number;
   abstract getDamage(): number;
-  abstract getLifeRegen(): number;
 }
 export type ItemType = 'usable' | 'weapon' | 'armor';

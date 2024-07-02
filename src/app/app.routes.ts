@@ -9,6 +9,7 @@ import { ShopScreenComponent } from './screen/shop-screen/shop-screen.component'
 import { StatusScreenComponent } from './screen/status-screen/status-screen.component';
 import { AboutScreenComponent } from './screen/about-screen/about-screen.component';
 import { authGuard } from './auth.guard';
+import { UseItemsScreenComponent } from './screen/use-items-screen/use-items-screen.component';
 
 export const routes: Routes = [
   { path: 'new-game', component: NewGameComponent, pathMatch: 'full' },
@@ -35,6 +36,12 @@ export const routes: Routes = [
   {
     path: 'fight-screen',
     component: FightScreenComponent,
+    pathMatch: 'full',
+    canActivate: [authGuard],
+  },
+  {
+    path: 'use-items',
+    component: UseItemsScreenComponent,
     pathMatch: 'full',
     canActivate: [authGuard],
   },

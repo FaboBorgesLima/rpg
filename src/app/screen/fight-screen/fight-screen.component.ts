@@ -79,10 +79,9 @@ export class FightScreenComponent implements OnInit {
     const mobEffect = mobAction.interact(playerAction);
     const playerEffect = playerAction.interact(mobAction);
 
+    this.player.applyEffect(playerEffect);
+    this.mob.applyEffect(mobEffect);
     this.battleStorageService.saveBattle(this.player, this.mob);
-
-    this.player.reciveEffect(playerEffect);
-    this.mob.reciveEffect(mobEffect);
 
     this.lastMobAction = mobAction.getActionType();
 
@@ -117,8 +116,6 @@ export class FightScreenComponent implements OnInit {
 
       this.player.getGold().add(monsterGold);
 
-      this.player.resetRemainingLife();
-
       this.playerStorage.update(this.player);
 
       alert(
@@ -140,8 +137,6 @@ export class FightScreenComponent implements OnInit {
         .getGameClass()
         .getLevel()
         .setXp(playerXp - monsterXp);
-
-      this.player.resetRemainingLife();
 
       this.playerStorage.update(this.player);
 

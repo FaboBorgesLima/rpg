@@ -32,10 +32,16 @@
       Defense
     </button>
     <button
-      class="btn bg-blue-500 hover:opacity-95 col-span-2"
+      class="btn bg-blue-500 hover:opacity-95"
       (click)="player.nextActionType = 'run'; onRound()"
     >
       Run ({{ (player.getRunAwayChance(mob) * 100).toFixed(0) }}%)
     </button>
+    <a
+      class="btn bg-green-500 hover:opacity-95"
+      routerLink="/use-items"
+      [queryParams]="{ id: id }"
+      >Use Items</a
+    >
   </footer>
 </section>

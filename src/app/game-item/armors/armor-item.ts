@@ -7,7 +7,4 @@ export abstract class ArmorItem extends GameItem {
   override getDamage(): number {
     return 0;
   }
-  override getLifeRegen(): number {
-    return 0;
-  }
 }

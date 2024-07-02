@@ -26,6 +26,8 @@ export abstract class GameClass {
   abstract getSpeed(): number;
 
   abstract getMaxStamina(): number;
+
+  abstract getInventorySize(): number;
 }
 
 export type GameClassesNames = 'thief' | 'warrior' | 'mob';
