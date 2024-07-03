@@ -10,6 +10,7 @@ import { IronArmor } from '../game-item/armors/iron-armor/iron-armor';
 import { UsableItem } from '../game-item/usables/usable-item';
 import { ArmorItem } from '../game-item/armors/armor-item';
 import { WeaponItem } from '../game-item/weapons/weapon-item';
+import { WoodenMace } from '../game-item/weapons/wooden-mace/wooden-mace';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,8 @@ export class GameItemFactoryService {
         return new IronMace();
       case 'bread':
         return new Bread();
+      case 'wooden-mace':
+        return new WoodenMace();
     }
     return new Clothes();
   }
@@ -48,6 +51,6 @@ export class GameItemFactoryService {
   }
 
   getWeapons(): WeaponItem[] {
-    return [new Fists(), new Sword(), new IronMace()];
+    return [new Fists(), new Sword(), new IronMace(), new WoodenMace()];
   }
 }

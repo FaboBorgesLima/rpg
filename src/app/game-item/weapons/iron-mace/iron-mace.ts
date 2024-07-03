@@ -7,6 +7,6 @@ export class IronMace extends WeaponItem {
   }
 
   constructor() {
-    super('iron-mace', 450);
+    super('iron-mace', 4500);
   }
 }

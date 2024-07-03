@@ -7,6 +7,6 @@ export class Sword extends WeaponItem {
   }
 
   constructor() {
-    super('sword', 200);
+    super('sword', 1500);
   }
 }

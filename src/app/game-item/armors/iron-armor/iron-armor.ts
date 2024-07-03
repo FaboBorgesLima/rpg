@@ -6,6 +6,6 @@ export class IronArmor extends ArmorItem {
   }
 
   constructor() {
-    super('iron armor', 1200);
+    super('iron armor', 3500);
   }
 }

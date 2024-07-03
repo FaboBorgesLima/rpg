@@ -1,4 +1,3 @@
-import { GameItem } from '../../game-item';
 import { WeaponItem } from '../weapon-item';
 
 export class Fists extends WeaponItem {
